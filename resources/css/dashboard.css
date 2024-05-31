@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    font-family: Courier New, monospace;
+    background-color: #23b9b9;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 33px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Align items with space between */
+    align-items: center;
+    padding: 20px;
+}
+
+
+#span {
+    position: relative;
+
+}
+
+.charts-container2d {
+    padding: 0 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.charts-container3d {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#chart3d1 {
+    width: 50%;
+    height: 500px;
+
+}
+#chart3d2 {
+    width: 50%;
+    height: 500px;
+
+}
+
+#chart {
+    width: 100%;
+    height: 500px;
+}
+
+
+#chart1 {
+    width: 100%;
+    height: 500px;
+}
+
+/* Add styles for buttons */
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Center buttons */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Add margin to separate from other content */
+}

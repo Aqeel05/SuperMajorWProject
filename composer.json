@@ -6,8 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "bluerhinos/phpmqtt": "^1.0",
+        "influxdata/influxdb-client-php": "^3.5",
         "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "nesbot/carbon": "^3.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
