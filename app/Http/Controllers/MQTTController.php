@@ -1,9 +1,10 @@
 <?php
-
+/*
 namespace App\Http\Controllers;
 
 use App\Services\MqttService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class MqttController extends Controller
 {
@@ -14,13 +15,19 @@ class MqttController extends Controller
         $this->mqttService = $mqttService;
     }
 
-    public function subscribeToMqtt()
+    public function subscribeToTopic()
     {
-        $topic = 'sensor/data';
+        $topic = 'sensor_data';
+        $this->mqttService->subscribe($topic);
 
-        $this->mqttService->subscribe($topic, function ($topic, $message) {
-            // Handle the incoming message
-            logger()->info("Received message on topic {$topic}: {$message}");
-        });
+        return response()->json(['message' => 'Subscribed to topic.']);
+    }
+
+    public function unsubscribeFromTopic()
+    {
+        $topic = 'sensor_data';
+        $this->mqttService->unsubscribe($topic);
+
+        return response()->json(['message' => 'Unsubscribed from topic.']);
     }
 }

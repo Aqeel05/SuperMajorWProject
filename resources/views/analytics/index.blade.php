@@ -1,84 +1,60 @@
+
 <x-app-layout>
     <head>
-        <title>InfluxDB Data</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0px;
-                background-color: #f5f5f5;
-            }
-            h1 {
-                text-align: center;
-                margin-bottom: 20px;
-                color: #333;
-            }
-            table {
-                width: 80%;
-                margin: 0 auto;
-                border-collapse: collapse;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                background-color: #fff;
-            }
-            th, td {
-                padding: 15px;
-                border: 1px solid #ddd;
-                text-align: left;
-                transition: background-color 0.3s;
-            }
-            th {
-                background-color: #4CAF50;
-                color: white;
-            }
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-            tr:hover {
-                background-color: #e0e0e0;
-            }
-            td {
-                color: #555;
-            }
-            th.sortable:hover {
-                cursor: pointer;
-                background-color: #45a049;
-            }
-            @media (max-width: 768px) {
-                table {
-                    width: 100%;
-                }
-                th, td {
-                    padding: 10px;
-                }
-            }
-        </style>
+        <title>MQTT Real-time Graph</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/laravel-echo/dist/echo.js"></script>
+        <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     </head>
     <body>
-        <br>
-        <h1>InfluxDB Data</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th class="sortable">Time</th>
-                    <th class="sortable">Sensor ID</th>
-                    <th class="sortable">Pressure</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($data as $record)
-                    <tr>
-                        <td>{{ $record['time'] }}</td>
-                        <td>{{ $record['sensorID'] }}</td>
-                        <td>{{ $record['pressure'] }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="3">No data found</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+        <button id="subscribeBtn">Subscribe</button>
+        <button id="unsubscribeBtn">Unsubscribe</button>
+        <div id="chart"></div>
+
+        <script>
+            var subscribeBtn = document.getElementById('subscribeBtn');
+            var unsubscribeBtn = document.getElementById('unsubscribeBtn');
+
+            var data = [{
+                y: [],
+                type: 'line',
+                name: 'Sensor Data'
+            }];
+
+            Plotly.newPlot('chart', data);
+
+            subscribeBtn.addEventListener('click', function() {
+                axios.get('/subscribe')
+                    .then(function(response) {
+                        console.log(response.data.message);
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    });
+            });
+
+            unsubscribeBtn.addEventListener('click', function() {
+                axios.get('/unsubscribe')
+                    .then(function(response) {
+                        console.log(response.data.message);
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    });
+            });
+
+            // Laravel Echo for real-time updates
+            var echo = new Echo({
+                broadcaster: 'socket.io',
+                host: window.location.hostname + ':6001'
+            });
+
+            echo.channel('mqtt-messages')
+                .listen('.mqtt.message.received', function(e) {
+                    var newData = [e.data.sensorValue];
+                    Plotly.extendTraces('chart', { y: [newData] }, [0]);
+                });
+        </script>
     </body>
-    <br>
-    <br>
 </x-app-layout>

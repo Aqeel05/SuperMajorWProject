@@ -22,7 +22,6 @@ class InfluxDBService
         $this->client = new Client([
             "url" => $url,
             "token" => $token,
-            'precision' => WritePrecision::S
         ]);
     }
 
@@ -45,7 +44,7 @@ class InfluxDBService
         }
 
         $writeApi = $this->client->createWriteApi();
-        $writeApi->write($point, WritePrecision::S, $this->bucket, $this->org);
+        $writeApi->write($point, $this->bucket, $this->org);
     }
 
     public function queryData($query)

@@ -29,7 +29,7 @@ class AnalyticsController extends Controller
         foreach ($result as $table) {
             foreach ($table->records as $record) {
                 $utcTime = $record->values['_time'];
-                $sgtTime = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $utcTime, 'UTC')->setTimezone('Asia/Singapore');
+                $sgtTime = Carbon::createFromFormat('Y-m-d\TH:i:s\Z', $utcTime, 'UTC')->setTimezone('Asia/Singapore');
     
                 $data[] = [
                     'time' => $sgtTime->toDateTimeString(), // Convert to string
@@ -42,6 +42,7 @@ class AnalyticsController extends Controller
         return view('analytics.index', compact('data'));
     }
 
+
     public function send()
     {
         return view('analytics.send');
@@ -52,17 +53,16 @@ class AnalyticsController extends Controller
         return view('analytics.dashboard');
     }
 
-    public function storeRandomData(Request $request)
+    public function storeData(Request $request)
     {
         $request->validate([
             'sensorValue' => 'required|integer|min:0|max:4095',
-            'sensorID' => 'required|integer|min:1|max:9',
+            'sensorID' => 'required|integer|min:1|max:10',
             'userID' => 'required|integer|exists:users,id'
         ]);
 
         $measurement = 'sensor_data';
         $tags = [
-            'location' => 'office',
             'userID' => $request->input('userID')
         ];
         $fields = [

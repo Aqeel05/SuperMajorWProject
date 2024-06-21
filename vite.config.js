@@ -8,6 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/dashboard.css',
                 'resources/js/app.js',
+                'node_modules/jquery/dist/jquery.min.js',
             ],
             refresh: true,
         }),

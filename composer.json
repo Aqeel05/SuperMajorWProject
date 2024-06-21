@@ -10,7 +10,9 @@
         "influxdata/influxdb-client-php": "^3.5",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "nesbot/carbon": "^3.4"
+        "nesbot/carbon": "^3.4",
+        "php-mqtt/client": "^2.1",
+        "predis/predis": "^2.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -14,9 +14,40 @@
 
     <!-- Start Session and End Session buttons -->
     <div class="button-container">
-        <button onclick="startSession()">Start Session</button>
-        <button onclick="endSession()">End Session</button>
+        <form method="POST" action="{{ route('mqtt.subscribe') }}" style="display:inline;">
+            @csrf
+            <input type="hidden" name="userID" value="{{ auth()->user()->id }}">
+            <button type="submit">Start Session</button>
+        </form>
+
+        <form method="POST" action="{{ route('mqtt.unsubscribe') }}" style="display:inline;">
+            @csrf
+            <button type="submit">End Session</button>
+        </form>
     </div>
+    
+
+    <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <script>
+        var data = [
+        {
+            z: [[50, 40, null, 40, 50],
+                [40, 0, null, 0, 40], // LR2 and LR4 pressure sensors don't exist so they're regarded as having 0 pressure
+                [45, 8, null, 15, 45],
+                [50, 25, null, 30, 50],
+                [40, 37, null, 40, 40]],
+            x: ['LL','LR','Unused','RL','RR'],
+            y: ['1','2','3','4','5'],
+            type: 'heatmap',
+            hoverongaps: false,
+            zsmooth: 'best',
+            colorscale: 'RdBu'
+        }
+        ];
+
+        Plotly.newPlot('myDiv', data);
+
+    </script>
 
     <div class="wrapper">
         <svg id="chart2d" version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -73,10 +104,11 @@
         184 24 388 -92 469 -43 30 -113 43 -155 29z"/>
         </g>
         </svg>
-        <button onclick="changeColor('left-foot', -1)">Left Foot - Decrease</button>
+        <!--<button onclick="changeColor('left-foot', -1)">Left Foot - Decrease</button>
         <button onclick="changeColor('left-foot', 1)">Left Foot - Increase</button>
         <button onclick="changeColor('right-foot', -1)">Right Foot - Decrease</button>
         <button onclick="changeColor('right-foot', 1)">Right Foot - Increase</button>
+        -->
         <script>
             let leftFootValue = 0;
             let rightFootValue = 0;
