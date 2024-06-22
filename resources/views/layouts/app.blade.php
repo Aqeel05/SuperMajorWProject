@@ -13,6 +13,14 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script>
+            // Script to toggle the profile dropdown
+            function toggleDropdown() {
+                var dropdown = document.getElementById("profile-dropdown");
+                if (dropdown.style.display !== "none") { dropdown.style.display = "none"; }
+                else {dropdown.style.display = "block";}
+            }
+        </script>
 
         <!-- CSS for loading spinner -->
         
