@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -17,8 +17,8 @@
             // Script to toggle the profile dropdown
             function toggleDropdown() {
                 var dropdown = document.getElementById("profile-dropdown");
-                if (dropdown.style.display !== "none") { dropdown.style.display = "none"; }
-                else {dropdown.style.display = "block";}
+                if (dropdown.style.display !== "block") { dropdown.style.display = "block"; }
+                else {dropdown.style.display = "none";}
             }
         </script>
 
@@ -26,6 +26,7 @@
         
     </head>
     <body class="font-sans antialiased">
+        <!--
         @auth
         <div class="spinner-wrapper" id="spinner">
             <div class="spinner">
@@ -56,6 +57,7 @@
             </div>
         </div>
         @endauth
+        -->
         
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
