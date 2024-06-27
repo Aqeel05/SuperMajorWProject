@@ -10,7 +10,7 @@
     </style>
 
     <header>
-        <div class="relative max-w-5xl mx-auto py-4">
+        <div class="max-w-5xl mx-auto py-4">
             <h1 class="font-sans font-bold text-5xl text-center text-green-500">About the solution</h1>
         </div>
     </header>
@@ -23,12 +23,14 @@
                 <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 py-4">
                     <div>
                         <h3 class="font-sans font-bold text-green-600">1: Patient registration</h3>
-                        <p class="font-sans">A patient first has to register. Their details are stored in a MySQL database accessible via phpMyAdmin.</p>
+                        <p class="font-sans">A patient first has to register. Their details are stored in the users table of the MySQL database, accessible via phpMyAdmin.</p>
                     </div>
                     <div>
                         <h3 class="font-sans font-bold text-green-600">2: Pressure sessions</h3>
                         <p class="font-sans">
                             Pressure sessions help to determine which pressure data is attributed to a specific patient and session.<br>
+                            Each pressure session is stored in the pressure_sessions table.<br>
+                            1 patient can have many pressure sessions in total (users to pressure_sessions: 0..*), while each pressure session is only attributed to 1 patient (pressure_sessions to users: 1..1).<br>
                             Data can only be monitored during pressure sessions.
                         </p>
                     </div>
@@ -78,9 +80,9 @@
                                 </a>
                             </div>
                             <div>
-                                <a href="https://laravel.com/docs/11.x/starter-kits">
+                                <a href="https://laravel.com/docs/11.x">
                                     <x-standard-button-dark>
-                                        {{ __('Starter kits (includes Breeze)') }}
+                                        {{ __('Docs') }}
                                     </x-standard-button-dark>
                                 </a>
                             </div>
@@ -100,6 +102,31 @@
                             </div>
                             <div>
                                 <a href="https://tailwindcss.com/docs/installation">
+                                    <x-standard-button-dark>
+                                        {{ __('Docs') }}
+                                    </x-standard-button-dark>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="h-20 py-2" src="{{ asset('pictures/resend-wordmark-black.svg') }}">
+                        <h3 class="font-sans font-bold text-green-600">Resend</h3>
+                        <p class="font-sans">
+                            An email delivery service that allows the application to send emails for users' email verification.
+                            I chose Resend over Postmark and any other email delivery service, because Resend's ability to accommodate GitHub or
+                            Google authentication makes it accessible to freelance developers; which is something that Postmark cannot do.
+                        </p>
+                        <div class="flex space-x-2">
+                            <div>
+                                <a href="https://resend.com/home">
+                                    <x-standard-button>
+                                        {{ __('➜ Resend') }}
+                                    </x-standard-button>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="https://resend.com/docs/introduction">
                                     <x-standard-button-dark>
                                         {{ __('Docs') }}
                                     </x-standard-button-dark>

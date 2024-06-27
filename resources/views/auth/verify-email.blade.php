@@ -5,10 +5,13 @@
         If you didn\'t receive the email, we will gladly send you another.
     -->
     <div>
-        <h3 class="font-sans font-medium text-gray-600 text-xl">Intrusion detected.</h3>
+        <h3 class="font-sans font-medium text-gray-900 text-lg">Identify yourself.</h3>
         <p class="font-sans text-gray-600 text-sm">
             You must have your email address verified before proceeding further.<br>
-            FWDIS has sent an email containing a link to verify your email address. If you did not receive the email, you may request again.
+            Press the Send Verification Email button below and Resend will send an email containing a link to verify your email address.
+            If you did not receive the email, you may request again. However, due to the limited number of emails Resend can send (100/day), you are not
+            guaranteed to receive one.<br>
+            Alternatively, you may choose to leave by clicking the icon.
         </p>
     </div>
 
@@ -24,7 +27,7 @@
 
             <div>
                 <x-primary-button>
-                    {{ __('Resend Verification Email') }}
+                    {{ __('Send Verification Email') }}
                 </x-primary-button>
             </div>
         </form>

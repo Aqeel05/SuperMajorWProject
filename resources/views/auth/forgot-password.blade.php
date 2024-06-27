@@ -6,8 +6,8 @@
     <div>
         <h3 class="font-sans font-medium text-lg text-gray-900">Forgot your password?</h3>
         <p class="font-sans text-sm text-gray-600">
-            Enter your email address and FWDIS will send an email containing a link to reset your password.<br>
-            A piece of advice: You should remember your passwords through a safe password storage app.
+            Enter your email address and Resend will send an email containing a link to reset your password.<br>
+            You should remember your passwords through a safe password storage app.
             <a class="underline font-sans text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('login') }}">
                 {{ __('Return to login page') }}
             </a>
