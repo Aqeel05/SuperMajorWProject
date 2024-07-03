@@ -9,5 +9,6 @@ class Note extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['note', 'user_id'];
+    // The attributes that are mass assignable.
+    protected $fillable = ['title', 'note', 'user_id'];
 }

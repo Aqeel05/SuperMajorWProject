@@ -1,13 +1,17 @@
 <x-app-layout>
-    <div class="note-container single-note">
-        <h1>Create new note</h1>
-        <form action="{{ route('note.store') }}" method="POST" class="note">
+    <div class="max-w-4xl mx-auto">
+        <div class="mx-auto my-4">
+            <p class="font-medium text-gray-900">Create new note</p>
+        </div>
+        <form action="{{ route('note.store') }}" method="POST">
             @csrf <!--csrf token to protect against csrf attacks-->
-            <textarea name="note" rows="10" class="note-body" 
-            placeholder="Enter your note here..."></textarea>
-            <div class="note-buttons">
-                <a href="{{ route('note.index') }}" class="note-cancel-button">Cancel</a>
-                <button class="note-submit-button">Submit</button>
+            <div class="bg-white rounded-md p-4 my-4 hover:shadow transition ease-in-out duration-150">
+                <textarea name="note" rows="10" class="w-full text-gray-600" placeholder="Enter your note here..."></textarea>
+            </div>
+            <div class="flex">
+                <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 transition ease-in-out duration-150">
+                    {{ __('Create note') }}
+                </button>
             </div>
         </form>
     </div>

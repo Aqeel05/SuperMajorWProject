@@ -43,7 +43,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource. Note in this case refers to the entire note + title
      */
     public function show(Note $note)
     {
@@ -73,7 +73,8 @@ class NoteController extends Controller
             abort(403);
         }
         $data = $request->validate([
-            'note' => ['required', 'string']
+            'note' => ['required', 'string'],
+            'title' => ['string']
         ]);
 
         $note->update($data);

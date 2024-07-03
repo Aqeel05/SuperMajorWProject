@@ -2,11 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Table CSS */
+th, td {
+  text-align: left;
+}
 
-* {
+th {
+  border-bottom: 2px solid black;
+}
+
+td {
+  border-bottom: 1px solid black;
+}
+
+* 
+  /* Global CSS. Custom font name (Figtree) goes here. If font cannot be loaded, commonly available font (Helvetica) is used */
+  {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Figtree', Helvetica, sans-serif;
   }
+
+  #patient-dropdown {
+    left: 27%;
+  }
+
+  /* CSS for the index header container */
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Adjust the spacing between items */
+  }
+
+  /* CSS for the notes page, to be unused */
   .note-container {
     max-width: 980px;
     margin: 0 auto;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountDatatableController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
@@ -35,6 +36,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/analytics/send', [AnalyticsController::class, 'send'])->name('analytics.send');
     Route::get('/analytics/dashboard', [AnalyticsController::class, 'display'])->name('analytics.display');
     Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
+
+    // Account Datatable (staff only) Routes
+    Route::resource('accountData', AccountDatatableController::class);
 
     // MQTT Subscription/Unsubscription Routes
     //Route::post('/analytics/subscribe', [MqttController::class, 'subscribeToMqtt'])->name('mqtt.subscribe');

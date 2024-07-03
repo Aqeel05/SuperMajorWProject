@@ -20,12 +20,26 @@
                 if (dropdown.style.display !== "block") { dropdown.style.display = "block"; }
                 else {dropdown.style.display = "none";}
             }
+
+            // Script to toggle the patient page dropdown
+            function toggleDropdown2() {
+                var dropdown2 = document.getElementById("patient-dropdown");
+                if (dropdown2.style.display !== "block") { dropdown2.style.display = "block"; }
+                else {dropdown2.style.display = "none";}
+            }
+
+            // Script to toggle the delete menu
+            function toggleDeleteMenu() {
+                var menu = document.getElementById("delete-menu");
+                if (menu.style.display !== "block") { menu.style.display = "block"; }
+                else {menu.style.display = "none";}
+            }
         </script>
 
         <!-- CSS for loading spinner -->
         
     </head>
-    <body class="font-sans antialiased">
+    <body class="antialiased">
         <!--
         @auth
         <div class="spinner-wrapper" id="spinner">
