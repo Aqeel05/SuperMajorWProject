@@ -9,9 +9,9 @@
         </p>
     </header>
 
-    <x-danger-button onclick="toggleDeleteMenu()">{{ __('Delete Account') }}</x-danger-button>
+    <x-danger-button onclick="toggleOpenableMenu()">{{ __('Delete Account') }}</x-danger-button>
 
-    <div class="hidden" id="delete-menu">
+    <div class="hidden" id="openable-menu">
         <form method="POST" action="{{ route('profile.destroy') }}" class="py-4">
             @csrf
             @method('delete')
@@ -39,7 +39,7 @@
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-secondary-button onclick="toggleDeleteMenu()">
+                <x-secondary-button onclick="toggleOpenableMenu()">
                     {{ __('Cancel') }}
                 </x-secondary-button>
 

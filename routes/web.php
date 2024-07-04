@@ -1,35 +1,25 @@
 <?php
 
-use App\Http\Controllers\AccountDatatableController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NoteController;
+use App\Http\Controllers\AccountDatatableController;
 use App\Http\Controllers\AnalyticsController;
-use App\Http\Controllers\MqttController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MqttController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ProfileController;
 
 // Public Routes
 Route::redirect('/', '/home')->name('dashboard');
-//      {Home Routes}
+
+// Home Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/home/about', [HomeController::class, 'about'])->name('home.about');
 
-// To enter middleware user must be authenticated and verified
+// To enter this middleware section, user must be authenticated and verified
 Route::middleware(['auth', 'verified'])->group(function() {
-
-    // Note Routes
-    //Route::get('/note', [NoteController::class, 'index'])->name('note.index');
-    //Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
-    //Route::post('/note', [NoteController::class, 'store'])->name('note.store');
-    //Route::get('/note/{note}', [NoteController::class, 'show'])->name('note.show');
-    //Route::get('/note/{note}/edit', [NoteController::class, 'edit'])->name('note.edit');
-    //Route::put('/note/{note}', [NoteController::class, 'update'])->name('note.update');
-    //Route::delete('/note/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
-
-    // OR
-
-    // Note Routes
-    Route::resource('note', NoteController::class);
+    // Account Datatable (staff only) Routes
+    Route::resource('accountData', AccountDatatableController::class);
 
     // Analytics Routes
     Route::get('/analytics', [AnalyticsController::class, 'showData'])->name('analytics.index');
@@ -37,8 +27,11 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/analytics/dashboard', [AnalyticsController::class, 'display'])->name('analytics.display');
     Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
 
-    // Account Datatable (staff only) Routes
-    Route::resource('accountData', AccountDatatableController::class);
+    // Chatbot (AI Physiology Assistant?) Routes
+    Route::resource('chatbot', ChatbotController::class);
+
+    // Note Routes
+    Route::resource('note', NoteController::class);
 
     // MQTT Subscription/Unsubscription Routes
     //Route::post('/analytics/subscribe', [MqttController::class, 'subscribeToMqtt'])->name('mqtt.subscribe');
@@ -50,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 });
 
+// To enter this middleware section, user must be authenticated
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

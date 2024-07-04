@@ -13,7 +13,7 @@ class AccountDatatableController extends Controller
         // Gets all data of all users, and the account_type_id of the current user ->paginate()
         $users = User::query()
         ->orderBy('created_at', 'asc')
-        ->paginate();
+        ->paginate(10);
 
         // Prevents non-staff from accessing the table
         if (request()->user()->account_type_id !== 2) {

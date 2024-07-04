@@ -5,8 +5,8 @@
         If you didn\'t receive the email, we will gladly send you another.
     -->
     <div>
-        <h3 class="font-sans font-medium text-gray-900 text-lg">Identify yourself.</h3>
-        <p class="font-sans text-gray-600 text-sm">
+        <h3 class="font-medium text-gray-900 text-lg">Identify yourself.</h3>
+        <p class="text-gray-600 text-sm">
             You must have your email address verified before proceeding further.<br>
             Press the Send Verification Email button below and Resend will send an email containing a link to verify your email address.
             If you did not receive the email, you may request again. However, due to the limited number of emails Resend can send (100/day), you are not
@@ -16,7 +16,7 @@
     </div>
 
     @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-sans font-medium text-sm text-green-600">
+        <div class="mb-4 font-medium text-sm text-green-600">
             {{ __('A new verification link has been sent to the email address you provided during registration.') }}
         </div>
     @endif
@@ -35,7 +35,7 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit" class="underline font-sans text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 {{ __('Log Out') }}
             </button>
         </form>

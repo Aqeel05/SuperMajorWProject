@@ -1,8 +1,9 @@
 <x-app-layout>
     <header>
-        <div class="max-w-5xl mx-auto py-4">
-            <h1 class="font-bold text-5xl text-center text-green-500">About the solution</h1>
-            <div class="m-4 p-4 bg-white rounded-md">
+        <!-- Header section -->
+        <div class="bg-green-100 p-4">
+            <h1 class="font-semibold text-5xl text-center text-green-500 py-2">About the solution</h1>
+            <div class="max-w-5xl mx-auto p-4 my-4 bg-white rounded-md">
                 <h3 class="font-medium text-lg text-gray-900">It's under construction!</h3>
                 <p class="text-gray-600">
                     ERD and more details will be added at a later date.
@@ -14,12 +15,16 @@
     <main>
         <div class="flex flex-col space-y-4">
             <div class="container mx-auto p-4">
-                <h3 class="font-bold text-center text-green-600">How does it work?</h3>
-                <h2 class="font-bold text-2xl text-center text-green-600">The entire process</h2>
+                <h3 class="font-semibold text-center text-green-500">How does it work?</h3>
+                <h2 class="font-semibold text-2xl text-center text-green-500">The entire process</h2>
                 <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 py-4">
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <h3 class="font-medium text-gray-900">1: Patient registration</h3>
-                        <p class="text-gray-600">A patient first has to register. Their details are stored in the users table of the MySQL database, accessible via phpMyAdmin.</p>
+                        <p class="text-gray-600">
+                            A patient first has to register. Their details are stored in the users table of the MySQL database, accessible via phpMyAdmin.<br>
+                            To access pages other than the index and about pages, their email needs to be verified. Upon request, the email service provider
+                            will send an email to the intended email address that allows them to verify their email.
+                        </p>
                     </div>
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <h3 class="font-medium text-gray-900">2: Pressure sessions</h3>
@@ -60,8 +65,8 @@
                 </div>
             </div>
             <div class="container mx-auto p-4">
-                <h3 class="font-bold text-center text-green-600">Behind the frontend, API, backend, and everything else</h3>
-                <h2 class="font-bold text-2xl text-center text-green-600">Hardware, software, and frameworks used</h2>
+                <h3 class="font-semibold text-center text-green-500">Behind the frontend, API, backend, and everything else</h3>
+                <h2 class="font-semibold text-2xl text-center text-green-500">Hardware, software, and frameworks used</h2>
                 <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 py-4">
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <img class="h-20 py-2" src="{{ asset('pictures/Laravel.svg') }}">
@@ -151,13 +156,13 @@
                     </div>
                 </div>
             </div>
-            <div class="container mx-auto p-4">
-                <h3 class="font-bold text-center text-green-600">Our database layout</h3>
-                <h2 class="font-bold text-2xl text-center text-green-600">Entity relationship diagram</h2>
-                <div class="mx-auto p-4">
+            <div class="max-w-5xl mx-auto p-4">
+                <h3 class="font-semibold text-center text-green-500">Our database layout</h3>
+                <h2 class="font-semibold text-2xl text-center text-green-500">Entity relationship diagram</h2>
+                <div class="m-4">
                     <img class="mx-auto" src="{{ asset('pictures/black-hole.webp') }}">
                 </div>
-                <p class="font-sans">Replace this picture once the ERD is ready</p>
+                <p>Replace this picture once the ERD is ready</p>
             </div>
         </div>
     </main>
