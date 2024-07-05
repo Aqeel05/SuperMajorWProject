@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MqttService;
-use Illuminate\Http\Request;
+use App\Jobs\ManageMqttSubscription;
 
 class MqttController extends Controller
 {
-    protected $mqttService;
-
-    public function __construct(MqttService $mqttService)
+    public function index()
     {
-        $this->mqttService = $mqttService;
+        return view('mqtt.index');
     }
 
-    public function subscribeToMqtt()
+    public function subscribe()
     {
-        $topic = 'sensor/data';
+        ManageMqttSubscription::dispatch('subscribe');
+        return response()->json(['message' => 'Subscribed to MQTT topic']);
+    }
 
-        $this->mqttService->subscribe($topic, function ($topic, $message) {
-            // Handle the incoming message
-            logger()->info("Received message on topic {$topic}: {$message}");
-        });
+    public function unsubscribe()
+    {
+        ManageMqttSubscription::dispatch('unsubscribe');
+        return response()->json(['message' => 'Unsubscribed from MQTT topic']);
     }
 }

@@ -1,10 +1,9 @@
 <x-app-layout>
   <head>
-    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>MQTT Over WebSockets Subscriber</title>
+    <title>MQTT Over WebSockets Publisher</title>
     <style>
         *,
         *:before,
@@ -30,52 +29,24 @@
         font-size: 1.2em;
         font-weight: bold;
         }
-        .form-row > input,
-        .form-row > textarea {
+        .form-row > input {
         flex: 2;
         }
+
         .form-row > input,
-        .form-row > button,
-        .form-row > textarea {
-        padding: 0.5em;
-        resize: vertical;
+        .form-row > button {
+        padding: 1em;
         margin: 10px 0;
         box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
         border-radius: 10px;
         font-size: 1.2em;
         }
-        .form-row > textarea {
-        font-size: 1.5em;
-        background-color: rgb(242, 248, 248);
-        text-align: center;
-        font-weight: bold;
-        }
-        .btn-container {
-        flex: 3;
-        column-gap: 10px;
-        display: flex;
-        }
-        .btn-container > button {
-        width: 50%;
-        border: 0;
-        padding: 1em;
-        box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
-        border-radius: 10px;
+        .form-row > button {
+        background-color: #3f51b5;
         color: white;
-        font-size: 1.2em;
-        }
-
-        #subscribe {
-        background-color: green;
-        }
-        #unsubscribe {
-        background-color: rgb(176, 6, 6);
-        }
-
-        #status {
-        background-color: lightcyan;
-        text-align: center;
-        font-weight: bold;
+        border: 0;
+        flex: 3;
+        font-weight: 600;
         }
     </style>
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
@@ -89,17 +60,10 @@
       </li>
       <li class="form-row">
         <label for="message">Message</label>
-        <textarea id="message" name="message" rows="10" readonly></textarea>
+        <input type="text" id="message" />
       </li>
       <li class="form-row">
-        <label for="status">Status</label>
-        <input type="text" id="status" readonly />
-      </li>
-      <li class="form-row">
-        <div class="btn-container">
-          <button type="button" id="subscribe">Subscribe</button>
-          <button type="button" id="unsubscribe">Unsubscribe</button>
-        </div>
+        <button type="button" class="publish">Publish</button>
       </li>
     </ul>
     <script>
@@ -108,14 +72,9 @@
         window.addEventListener("load", (event) => {
         connectToBroker();
 
-        const subscribeBtn = document.querySelector("#subscribe");
-        subscribeBtn.addEventListener("click", function () {
-            subscribeToTopic();
-        });
-
-        const unsubscribeBtn = document.querySelector("#unsubscribe");
-        unsubscribeBtn.addEventListener("click", function () {
-            unsubscribeToTopic();
+        const publishBtn = document.querySelector(".publish");
+        publishBtn.addEventListener("click", function () {
+            publishMessage();
         });
         });
 
@@ -155,29 +114,22 @@
             console.log(
             "Received Message: " + message.toString() + "\nOn topic: " + topic
             );
-            const messageTextArea = document.querySelector("#message");
-            messageTextArea.value += message + "\r\n";
         });
         }
 
-        function subscribeToTopic() {
-        const status = document.querySelector("#status");
+        function publishMessage() {
+        const messageInput = document.querySelector("#message");
+
         const topic = document.querySelector("#topic").value.trim();
-        console.log(`Subscribing to Topic: ${topic}`);
+        const message = messageInput.value.trim();
 
-        mqttClient.subscribe(topic, { qos: 0 });
-        status.style.color = "green";
-        status.value = "SUBSCRIBED";
-        }
+        console.log(`Sending Topic: ${topic}, Message: ${message}`);
 
-        function unsubscribeToTopic() {
-        const status = document.querySelector("#status");
-        const topic = document.querySelector("#topic").value.trim();
-        console.log(`Unsubscribing to Topic: ${topic}`);
-
-        mqttClient.unsubscribe(topic, { qos: 0 });
-        status.style.color = "red";
-        status.value = "UNSUBSCRIBED";
+        mqttClient.publish(topic, message, {
+            qos: 0,
+            retain: false,
+        });
+        messageInput.value = "";
         }
     </script>
   </body>

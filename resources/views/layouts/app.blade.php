@@ -15,74 +15,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- CSS for loading spinner -->
-        <style>
-            .spinner-wrapper {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: transparent;
-                z-index: 9999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .container {
-                --uib-size: 45px;
-                --uib-color: black;
-                --uib-speed: 0.8s;
-                --uib-bg-opacity: .1;
-                height: 31.25px;
-                width: 50px;
-                transform-origin: center;
-                overflow: visible;
-            }
-
-            .car {
-                stroke: var(--uib-color);
-                stroke-dasharray: 100;
-                stroke-dashoffset: 0;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-                animation:
-                    travel var(--uib-speed) ease-in-out 1,
-                    fade var(--uib-speed) ease-out 1;
-                will-change: stroke-dasharray, stroke-dashoffset;
-                transition: stroke 0.5s ease;
-            }
-
-            .track {
-                stroke-linecap: round;
-                stroke-linejoin: round;
-                stroke: var(--uib-color);
-                opacity: var(--uib-bg-opacity);
-            }
-
-            @keyframes travel {
-                0% {
-                    stroke-dashoffset: 100;
-                }
-                75% {
-                    stroke-dashoffset: 0;
-                }
-            }
-
-            @keyframes fade {
-                0% {
-                    opacity: 0;
-                }
-                20%, 55% {
-                    opacity: 1;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-        </style>
+        
     </head>
     <body class="font-sans antialiased">
+        @auth
         <div class="spinner-wrapper" id="spinner">
             <div class="spinner">
                 <svg
@@ -111,6 +47,8 @@
                 </svg>
             </div>
         </div>
+        @endauth
+        
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
