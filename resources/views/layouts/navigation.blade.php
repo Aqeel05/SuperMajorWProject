@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="sticky top-0 bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="sticky top-0 bg-white border-b border-gray-100 z-10">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -21,8 +21,8 @@
                     </x-nav-link>
                     <!-- Authenticated (staff and patient) navigation links -->
                     <!-- For this div-button-dropdown combo, the div has the border CSS while the button text has the text CSS -->
+                    @auth
                     <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                        @auth
                         <button onclick="toggleDropdown2()" class="inline-flex items-center text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out">
                             <div>Patient pages</div>
                             <div class="ml-1">
@@ -48,8 +48,8 @@
                                 {{ __('Send Analytics') }}
                             </x-dropdown-link>
                         </div>
-                        @endauth
                     </div>
+                    @endauth
                     <!-- Staff-only navigation link -->
                     @auth
                     @if (Auth::user()->id === 2)

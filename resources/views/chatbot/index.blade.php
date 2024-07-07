@@ -9,18 +9,61 @@
                     Chatbot frameworks have yet to be implemented.<br>
                     Our project also offers a chatbot that can be used for either seeking quick feedback regarding foot pressure distribution or the like,
                     just a quick chat, or off-topic chats.<br>
+                    This is a link to ChatGPT just in case:
+                    <a class="underline" href="https://chatgpt.com/">Redirect chatbot</a><br>
                     <span class="text-red-600">
-                        The chatbot can make mistakes which can result in highly undesirable consequences on you.
-                        For professional advice, please seek a doctor. You have been warned.
+                        The chatbot can make mistakes which can result in highly undesirable consequences on you.<br>
+                        For professional advice, please seek a doctor.<br>
+                        For safe use of this chatbot, it is only imperative that you carefully peruse OpenAI's
+                        <a class="underline" href="https://openai.com/policies/privacy-policy/">Privacy Policy</a>
+                        at all costs.<br>
+                        You have been warned.
                     </span>
                 </p>
             </div>
         </div>
     </header>
     <main>
-        <div class="max-w-5xl mx-auto p-4">
+        <div class="max-w-4xl mx-auto p-4">
             <div class="p-4 my-4 rounded-md bg-white">
-                <p>Content missing</p>
+                <div class="p-4 rounded-md bg-gray-900 overflow-y-auto" style="height: 40rem;">
+                    <div class="flex justify-start">
+                        <div class="p-2 pr-8 mb-4 border border-white rounded-md bg-gray-600">
+                            <p class="text-white font-mono">
+                                <span class="font-mono font-bold">Chatbot:</span><br>
+                                This area has no code.<br>
+                                null<br>
+                                null<br>
+                                null<br>
+                                null
+                            </p>
+                        </div>
+                    </div>    
+                    <div class="flex justify-start">
+                        <div class="p-2 pr-8 mb-4 border border-white rounded-md bg-black">
+                            <p class="text-white font-mono">
+                            <span class="font-mono font-bold">You:</span><br>
+                                Let me continue!<br>
+                                Let me see how long this text can be! As long as the ends of the earth?<br>
+                                I wanna expand this div!<br>
+                                this is a phrase<br>
+                                this is another phrase<br>
+                                zzzZZZ<br>
+                                no
+                            </p>
+                        </div>    
+                    </div>
+                </div>
+                <div class="flex flex-row mt-4 justify-center items-start space-x-4">
+                    <div class="grow">
+                        <textarea rows="5" class="w-full text-gray-600 resize-none rounded-md" placeholder="Typing in here won't help"></textarea>
+                    </div>
+                    <div class="flex-none">
+                        <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 transition ease-in-out duration-150">
+                            Enter
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>    
     </main>

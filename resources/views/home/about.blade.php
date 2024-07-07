@@ -65,13 +65,17 @@
                 </div>
             </div>
             <div class="container mx-auto p-4">
-                <h3 class="font-semibold text-center text-green-500">Behind the frontend, API, backend, and everything else</h3>
+                <h3 class="font-semibold text-center text-green-500">Powering the frontend, API, backend, and everything else</h3>
                 <h2 class="font-semibold text-2xl text-center text-green-500">Hardware, software, and frameworks used</h2>
                 <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 py-4">
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <img class="h-20 py-2" src="{{ asset('pictures/Laravel.svg') }}">
                         <p class="font-medium text-gray-900">Laravel</p>
-                        <p class="text-gray-600">A versatile PHP framework that elevates most PHP based projects - more specifically, we are using Laravel Breeze.</p>
+                        <p class="text-gray-600">
+                            A versatile PHP framework that provides a good starting point for many full-stack developers and PHP programmers,
+                            and features support for well-known database software and integration capabilities with other software.
+                            More specifically, we are using Laravel Breeze combined with vite.js (pronounced as "veet") and alpine.js as JavaScript software.
+                        </p>
                         <div class="flex justify-end">
                             <a href="https://laravel.com/">
                                 <button class="inline-flex items-center text-gray-600 border px-2 py-1 bg-white rounded-l-md hover:bg-gray-100 transition ease-in-out duration-150">
@@ -80,7 +84,7 @@
                             </a>
                             <a href="https://laravel.com/docs/11.x">
                                 <button class="inline-flex items-center text-gray-600 border px-2 py-1 bg-white rounded-r-md hover:bg-gray-100 transition ease-in-out duration-150">
-                                    {{ __('Docs') }}
+                                    {{ __('Docs (11.x)') }}
                                 </button>
                             </a>
                         </div>
@@ -88,7 +92,12 @@
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <img class="h-20 py-2" src="{{ asset('pictures/Tailwind_CSS_Logo.svg') }}">
                         <h3 class="font-medium text-gray-900">Tailwind CSS</h3>
-                        <p class="text-gray-600">A CSS framework that enables creating smooth, intuitive frontends without the need to define classes.</p>
+                        <p class="text-gray-600">
+                            A CSS framework that enables creating smooth, intuitive frontends with utility-first classes, leading to higher
+                            consistency and stability. However, it is only an add-on to standard CSS and may not be universally applicable;
+                            meaning, it still requires a standard CSS file to exist
+                            and may require custom ids or classes to be made for where Tailwind CSS cannot solve.
+                        </p>
                         <div class="flex justify-end">
                             <a href="https://tailwindcss.com/">
                                 <button class="inline-flex items-center text-gray-600 border px-2 py-1 bg-white rounded-l-md hover:bg-gray-100 transition ease-in-out duration-150">
@@ -106,9 +115,10 @@
                         <img class="h-20 py-2" src="{{ asset('pictures/resend-wordmark-black.svg') }}">
                         <h3 class="font-medium text-gray-900">Resend</h3>
                         <p class="text-gray-600">
-                            An email delivery service that allows the application to send emails for users' email verification.
+                            An email delivery service that allows the application to send emails for users' email verification and password resetting.
                             I chose Resend over Postmark and any other email delivery service, because Resend's ability to accommodate GitHub or
-                            Google authentication makes it accessible to freelance developers; which is something that Postmark cannot do.
+                            Google authentication makes it accessible to freelance developers, which is something that Postmark cannot do;
+                            and it can be used for free.
                         </p>
                         <div class="flex justify-end">
                             <a href="https://resend.com/home">
@@ -126,7 +136,10 @@
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <img class="h-20 py-2" src="{{ asset('pictures/Mysql_logo.png') }}">
                         <a class="font-medium text-gray-900" href="https://www.mysql.com/">MySQL</a>
-                        <p class="text-gray-600">MySQL is a database software that is used for storing patient and staff data.</p>
+                        <p class="text-gray-600">
+                            MySQL is a database software that is used for storing account (patient/staff)
+                            and user session data (that tracks when and where the website is accessed).
+                        </p>
                     </div>
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <img class="h-20 py-2" src="{{ asset('pictures/PhpMyAdmin_logo.svg') }}">
@@ -147,8 +160,16 @@
                         <p class="text-gray-600">Plotly.js is used for graphs and the foot pressure heatmap.</p>
                     </div>
                     <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
+                        <img class="h-20 py-2" src="{{ asset('pictures/Mqtt-hor.svg') }}">
+                        <a class="font-medium text-gray-900" href="https://mqtt.org/">Message Queuing Telemetry Transport (MQTT)</a>
+                        <p class="text-gray-600">
+                            A lightweight publish-subscribe messaging transport that is ideal for small IoT systems and is responsible for connecting
+                            the ESP32 with the Influx database.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-md p-4 hover:shadow transition ease-in-out duration-150">
                         <img class="h-20 py-2" src="{{ asset('pictures/nodemcu-esp32.jpg') }}">
-                        <h3 class="font-medium text-gray-90">ESP32</h3>
+                        <h3 class="font-medium text-gray-900">ESP32</h3>
                         <p class="text-gray-600">
                             A pair of these integrated circuits are connected to 9 FSRs or velostats - the pressure sensors - to measure the pressure
                             readings of each foot.

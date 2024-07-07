@@ -1,15 +1,49 @@
 @extends('layouts.errs')
 @include('layouts.navigation') <!-- Include navigation here -->
 
-<div class="container px-60 py-40">
-    <div class="flex flex-col space-y-4">
-        <h1 class="font-bold text-7xl">403 Forbidden</h1>
-        <h2 class="text-4xl">"You shall not pass!"</h2>
-        <p>The system has detected that you have been authenticated, but due to insufficient credentials, it is refusing access to this page.</p>
-        <a href="{{ route('home.index') }}">
-            <x-primary-button>
-                {{ __('Get back to safety') }}
-            </x-primary-button>
-        </a>
+<style>
+    #main {
+        background-color: black;
+        height: 93%;
+    }
+
+    #main h1, p {
+        font-family: monospace;
+        text-shadow: 0px 0px 6px;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 0;
+        }
+
+        49% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .blink {
+        animation-name: blink;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+</style>
+
+<div id="main">
+    <div class="flex flex-col justify-center items-center space-y-2 p-16">
+        <div>
+            <h1 class="text-5xl text-green-400">403 Forbidden</h1>
+        </div>
+        <div>
+            <p class="text-red-500">You shouldn't have done that.</p>
+        </div>
     </div>
 </div>

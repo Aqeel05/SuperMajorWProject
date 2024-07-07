@@ -7,16 +7,11 @@
                 <p class="text-center text-gray-900 py-1">
                     A brief list of all accounts in the users table in the database. For more detailed information, visit phpMyAdmin.
                 </p>
-                <div class="flex justify-center space-x-2">
-                    <x-standard-button-dark onclick="toggleOpenableMenu()">
-                        {{ __('Show Accounts') }}
-                    </x-standard-button-dark>
-                </div>
             </div>
         </div>
     </header>
     <main>
-        <div id="openable-menu" class="hidden container mx-auto p-4">
+        <div class="container mx-auto p-4">
             <div>
                 {{ $users->links() }}
             </div>

@@ -15,9 +15,9 @@
             </p>
         </div>
         <div class="bg-white rounded-md p-4">
-            <p class="text-gray-600">
+            <textarea disabled name="note" rows="10" class="w-full text-gray-600 resize-none border-none rounded-md">
                 {{ $note->note }}
-            </p>
+            </textarea>
         </div>
         <div class="flex mt-4">
             <a href="{{ route('note.index', $note) }}">

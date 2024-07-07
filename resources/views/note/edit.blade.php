@@ -19,13 +19,25 @@
             @method('PUT')
             <div class="bg-white rounded-md p-4">
                 <p class="font-medium text-gray-900">Note title</p>
-                <textarea name="title" rows="1" class="w-full text-gray-600" placeholder="Enter your title here...">
+                <textarea name="title" rows="2" class="w-full text-gray-600 resize-none rounded-md" placeholder="Title">
                     {{ $note->title }}
                 </textarea>
+                <p class="text-gray-600">You may enter a maximum of 200 bytes or leave this space blank.</p>
+                <p class="text-red-600">
+                    @foreach ($errors->get('title') as $error)
+                        {{ $error }}
+                    @endforeach
+                </p><br>
                 <p class="font-medium text-gray-900">Note contents</p>
-                <textarea name="note" rows="10" class="w-full text-gray-600" placeholder="Enter your note here...">
+                <textarea name="note" rows="10" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents">
                     {{ $note->note }}
                 </textarea>
+                <p class="text-gray-600">You may enter a maximum of 65,536 bytes.</p>
+                <p class="text-red-600">
+                    @foreach ($errors->get('note') as $error)
+                        {{ $error }}
+                    @endforeach
+                </p>
             </div>
             <div class="mt-4">
                 <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 transition ease-in-out duration-150">
@@ -34,7 +46,7 @@
             </div>
         </form>
         <div class="pt-2">
-            <a href="{{ route('note.index') }}">
+            <a href="{{ route('note.show', $note) }}">
                 <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 transition ease-in-out duration-150">
                     {{ __('Cancel') }}
                 </button>
