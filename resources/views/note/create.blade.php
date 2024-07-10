@@ -24,14 +24,14 @@
                 </p>
             </div>
             <div>
-                <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 transition ease-in-out duration-150">
+                <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
                     {{ __('Create note') }}
                 </button>
             </div>
         </form>
         <div class="pt-2">
             <a href="{{ route('note.index') }}">
-                <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 transition ease-in-out duration-150">
+                <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
                     {{ __('Cancel') }}
                 </button>
             </a>

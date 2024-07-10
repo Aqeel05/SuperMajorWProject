@@ -8,9 +8,6 @@
         <p class="text-sm text-gray-600">
             Enter your email address and Resend will send an email containing a link to reset your password.<br>
             You should remember your passwords through a safe password storage app.
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('login') }}">
-                {{ __('Return to login page') }}
-            </a>
         </p>
     </div>
 
@@ -27,7 +24,10 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end mt-4 space-x-4">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('login') }}">
+                {{ __('Return to login page') }}
+            </a>
             <x-primary-button>
                 {{ __('Email Password Reset Link') }}
             </x-primary-button>

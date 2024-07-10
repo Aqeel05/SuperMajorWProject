@@ -49,11 +49,11 @@
             <p class="text-sm text-gray-600">Required; must be the same as Password</p>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end mt-4 space-x-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
-            <x-primary-button class="ms-4">
+            <x-primary-button>
                 {{ __('Register') }}
             </x-primary-button>
         </div>

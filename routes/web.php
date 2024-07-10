@@ -28,7 +28,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
 
     // Chatbot (AI Physiology Assistant?) Routes
-    Route::resource('chatbot', ChatbotController::class);
+    Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot.index');
+    Route::get('/chatbot/show', [ChatbotController::class, 'show'])->name('chatbot.show');
 
     // Note Routes
     Route::resource('note', NoteController::class);

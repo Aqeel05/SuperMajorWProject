@@ -24,7 +24,7 @@
             </div>  
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 py-4">
                 @foreach($notes as $note)
-                    <div class="bg-white rounded-md p-4">
+                    <div class="bg-white rounded-md p-4 min-w-80">
                         <div class="flex flex-col space-y-2 h-full">
                             <div class="flex-1">
                                 <p class="font-medium text-gray-900 truncate">
@@ -40,23 +40,20 @@
                                 </p>
                             </div>
                             <div class="flex-none">
-                                <div class="flex justify-end">
-                            <a href="{{ route('note.show', $note) }}">
-                                <button class="inline-flex items-center border px-2 py-1 bg-white rounded-l-md hover:bg-gray-100 transition ease-in-out duration-150">
-                                    {{ __('View') }}
-                                </button>
-                            </a>
-                            <a href="{{ route('note.edit', $note) }}">
-                                <button class="inline-flex items-center border px-2 py-1 bg-white rounded-r-md hover:bg-gray-100 transition ease-in-out duration-150">
-                                    {{ __('Edit') }}
-                                </button>
-                            </a>
-                        </div>
+                                <div class="flex items-center justify-end">
+                                    <a href="{{ route('note.show', $note) }}">
+                                        <button class="inline-flex items-center border px-2 py-1 bg-white rounded-l-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
+                                            {{ __('View') }}
+                                        </button>
+                                    </a>
+                                    <a href="{{ route('note.edit', $note) }}">
+                                        <button class="inline-flex items-center border px-2 py-1 bg-white rounded-r-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
+                                            {{ __('Edit') }}
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        
-                        
-                        
                     </div>
                 @endforeach
             </div>

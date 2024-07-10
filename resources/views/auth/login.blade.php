@@ -10,10 +10,7 @@
             <h3 class="font-medium text-lg text-gray-900">Use a local account to log in.</h3>
             <p class="text-sm text-gray-600">
                 This is the login page. You may only login if the credentials are recognised in the database.
-                If you do not already have an account, please return to the
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('register') }}">
-                    {{ __('register page.') }}
-                </a>
+                If you do not already have an account, please return to the register page.
             </p>
         </div>
 
@@ -44,13 +41,16 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end mt-4 space-x-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-            <x-primary-button class="ms-3">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('register') }}">
+                {{ __('Register page') }}
+            </a>
+            <x-primary-button>
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

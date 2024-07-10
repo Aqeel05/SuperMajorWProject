@@ -11,4 +11,9 @@ class ChatbotController extends Controller
     {
         return view('chatbot.index');
     }
+
+    public function show()
+    {
+        return view('chatbot.show');
+    }
 }

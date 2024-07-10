@@ -22,8 +22,22 @@
                     <!-- Authenticated (staff and patient) navigation links -->
                     <!-- For this div-button-dropdown combo, the div has the border CSS while the button text has the text CSS -->
                     @auth
-                    <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                        <button onclick="toggleDropdown2()" class="inline-flex items-center text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out">
+                    <!-- Start of the dropdown -->
+                    <div
+                        x-data="{open: false}"
+                        class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent
+                        hover:border-gray-300
+                        focus:outline-none focus:border-gray-300
+                        transition duration-150 ease-in-out"
+                    >
+                        <!-- Button -->
+                        <button
+                            x-on:click="open = !open"
+                            class="inline-flex items-center text-sm font-medium leading-5 text-gray-500
+                            hover:text-gray-700
+                            focus:text-gray-700
+                            transition duration-150 ease-in-out"
+                        >
                             <div>Patient pages</div>
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -31,7 +45,16 @@
                                 </svg>
                             </div>
                         </button>
-                        <div id="patient-dropdown" class="hidden origin-top absolute top-12 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+
+                        <!-- Panel -->
+                        <div
+                            x-ref="panel"
+                            x-show="open"
+                            x-transition.origin.top.left
+                            x-on:click.away="open = false"
+                            style="display: none;"
+                            class="origin-top absolute top-12 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+                        >
                             <x-dropdown-link :href="route('note.index')" :active="request()->routeIs('note.index')">
                                 {{ __('Notes') }}
                             </x-dropdown-link>
@@ -61,11 +84,24 @@
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
+            <!-- User profile settings dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6 ml-auto">
                 @auth
-                    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open" onclick="toggleDropdown()" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                    <!-- Start of the dropdown -->
+                    <div
+                        x-data="{open: false}"
+                        class="relative"
+                    >
+                        <!-- Button -->
+                        <button
+                            x-ref="button"
+                            x-on:click="open = !open"
+                            type="button"
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white
+                            hover:text-gray-700
+                            focus:outline-none
+                            transition ease-in-out duration-150"
+                        >
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
@@ -75,7 +111,15 @@
                             </div>
                         </button>
 
-                        <div x-show="open" id="profile-dropdown" @click.away="open = false" x-cloak class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                        <!-- Panel -->
+                        <div
+                            x-ref="panel"
+                            x-show="open"
+                            x-transition.origin.top.right
+                            x-on:click.away="open = false"
+                            style="display: none;"
+                            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+                        >
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -114,7 +158,13 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div id="small-nav-menu" class="hidden sm:hidden">
+    <div
+        x-ref="panel"
+        x-show="open"
+        x-transition.origin.top
+        style="display: none;"
+        class="sm:hidden"
+    >
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home.index')" :active="request()->routeIs('home.index')">
                 {{ __('Home') }}
