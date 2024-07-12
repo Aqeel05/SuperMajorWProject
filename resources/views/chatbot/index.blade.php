@@ -6,11 +6,8 @@
             <div class="max-w-5xl mx-auto">
                 <h2 class="font-medium text-2xl text-green-600 py-1">A fast-acting advisor for your problems</h2>
                 <p class="text-gray-900 py-1">
-                    Chatbot frameworks have yet to be implemented.<br>
-                    Our project also offers a chatbot that can be used for either seeking quick feedback regarding foot pressure distribution or the like,
-                    just a quick chat, or off-topic chats.<br>
-                    This is a link to ChatGPT just in case:
-                    <a class="underline" href="https://chatgpt.com/">Redirect chatbot</a><br>
+                    The chatbot framework, Voiceflow, has been implemented in the app layout.<br>
+                    Our project also offers a chatbot that can be used for either seeking quick feedback regarding foot pressure distribution or the like, or off-topic chats.<br>
                     <span class="text-red-600">
                         The chatbot can make mistakes which can result in highly undesirable consequences on you.<br>
                         For professional advice, please seek a doctor.<br>
@@ -26,10 +23,7 @@
     <main>
         <div class="max-w-4xl mx-auto p-4">
             <div class="text-center">
-                The chatbot page has been moved to
-                <a href="{{ route('chatbot.show') }}">
-                    this page
-                </a>
+                The dedicated chatbot page is no longer accessible. Instead, it is accessible from any page via the button at the bottom right.
             </div>
         </div>
     </main>

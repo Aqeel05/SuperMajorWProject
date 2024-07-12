@@ -1,9 +1,35 @@
 # CHANGELOG.md
 
-> To better understand what has been done in each commit, commit descriptions may be noted down.
-> *Italic* text refers to classes.
-> **Bolded** text refers to file names.
+> To better understand what has been done in each commit, commit descriptions may be noted down.<br>
+> *Italic* text refers to classes.<br>
+> **Bolded** text refers to file names.<br>
 > ***Bolded, italic*** text refers to project directories.
+
+## 12/7 by Jayson on test-branch-1 - Added implementation for Voiceflow.
+
+### Fixes
+
+- Fixed an issue where the "Click here to send the verification email." link in the profile page would still have an indigo ring on focus. The indigo colour has been changed to green.
+- Fixed grammatical issues in the about page.
+
+### Additions and removals
+
+- Added code that implements our Voiceflow chatbot to the app.blade.php file, allowing it to be accessible from all pages. At this point it is in its alpha phases.
+- Added Voiceflow image.
+- Removed the route leading to the chatbot show page.
+
+### Modifications
+
+- Changed dropdown transitions to opacity transitions that have a 200 ms duration.
+- Changed the Register / Login section in the navigation bar to Login / Get started.
+- The about page route is now /about instead of /home/about.
+
+### To be implemented
+
+- Integration to the cloud (AWS, to be done by all).
+- Voiceflow section in the About page (to be done by Jayson).
+
+
 
 ## 10/7 by Jayson on test-branch-1 - Implemented Alpine.js and some CSS fixes
 
@@ -41,10 +67,10 @@
 - Changed the location of the "Click here to re-send the verification email." link in the profile page to the "Uneditable information" section; and replaced "re-send" with "send".
 - Changed the nature of all dropdowns into Alpine.js dropdowns.
 
-### To be implemented
+### Formerly to be implemented
 
 - Accordion and tab sections for the about page.
-- Will change the *flex-1* in the body section of the frameworks, software, and hardware used section of the about page to *flex-none*.
+- Would have changed the *flex-1* in the body section of the frameworks, software, and hardware used section of the about page to *flex-none*, but gave up on that idea.
 
 
 
@@ -85,7 +111,15 @@
 
 ## 5/7 by Aqeel on master - latest 5th July changes
 
-To be added.
+### Additions and removals
+
+- Added code that is necessary for Influx connections.
+- More to be added.
+
+### Modifications
+
+- Improved upon the code in the analytics pages.
+- More to be added.
 
 
 

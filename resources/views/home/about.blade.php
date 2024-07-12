@@ -77,8 +77,10 @@
                                 <p class="font-medium text-gray-900">Laravel</p>
                                 <p class="text-gray-600">
                                     A versatile PHP framework that provides a good starting point for many full-stack developers and PHP programmers. We chose this because:<br>
-                                    - It features wide support for well-known database software and integration capabilities with other software, which allows for easier implementation;<br>
-                                    - There are many first-party packages for use in Laravel are applicable for a multitude of use-cases (such as Breeze, a quick authentication package).<br>
+                                    - It is a scalable framework: The presence of PHP makes it suitable for beginners as well as experts;<br>
+                                    - It features wide support for and integration capabilities with other software, which allows for easier implementation;<br>
+                                    - It provides a structured set of project directories, with accessible routing, controller requests, and page editing;<br>
+                                    - There are many first-party packages for use in Laravel that are applicable for a multitude of use-cases (such as Breeze, a quick authentication package).<br>
                                     In addition to Laravel as a whole, we are using Laravel Breeze combined with the JavaScript frameworks, vite.js and Alpine.js.
                                 </p>
                             </div>
@@ -218,7 +220,7 @@
                             </div>
                             <div class="flex-1">
                                 <p class="font-medium text-gray-900">phpMyAdmin</p>
-                                <p class="text-gray-600">phpMyAdmin is used to examine MySQL databases.</p>
+                                <p class="text-gray-600">phpMyAdmin was used to examine MySQL databases before it was replaced by AWS Relational Database Services.</p>
                             </div>
                             <div class="flex-none">
                                 <div class="flex items-center justify-end">

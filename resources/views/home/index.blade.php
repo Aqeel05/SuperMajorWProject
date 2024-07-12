@@ -57,7 +57,8 @@
                         <div
                             x-ref="panel"
                             x-show="open"
-                            x-transition.origin.top.left
+                            x-transition.opacity
+                            x-transition.duration.200ms
                             style="display: none;"
                             class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md"
                         >

@@ -3,8 +3,9 @@
     <div class="max-w-5xl mx-auto p-4">
         <div>
             <h3 class="font-medium text-lg text-gray-900">
-                Chatbot
+                Chatbot (moved to all other pages)
             </h3>
+            <p class="text-gray-600">This is supposed to be where the chatbot was supposed to be.</p>
         </div>
     </div>
     </header>

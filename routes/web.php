@@ -14,7 +14,7 @@ Route::redirect('/', '/home')->name('dashboard');
 
 // Home Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
-Route::get('/home/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 
 // To enter this middleware section, user must be authenticated and verified
 Route::middleware(['auth', 'verified'])->group(function() {
@@ -29,7 +29,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     // Chatbot (AI Physiology Assistant?) Routes
     Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot.index');
-    Route::get('/chatbot/show', [ChatbotController::class, 'show'])->name('chatbot.show');
 
     // Note Routes
     Route::resource('note', NoteController::class);
