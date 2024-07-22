@@ -31,6 +31,20 @@
             <p class="text-sm text-gray-600">Required; 1 - 200 characters long</p>
         </div>
 
+        <div>
+            <p class="block font-medium text-sm text-gray-700">Account type</p>
+            <div class="mt-1 flex flex-col space-y-1">
+                <div class="border border-gray-300 rounded-md shadow-sm px-2 py-1">
+                    <input type="radio" id="patient" name="account_type_id" value=1 class="text-green-500 focus:ring-green-500" required>
+                    <label for="patient" class="text-sm text-gray-600">Patient</label>
+                </div>
+                <div class="border border-gray-300 rounded-md shadow-sm px-2 py-1">
+                    <input type="radio" id="staff" name="account_type_id" value=2 class="text-green-500 focus:ring-green-500" required>
+                    <label for="staff" class="text-sm text-gray-600">Staff</label>
+                </div>
+            </div>
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

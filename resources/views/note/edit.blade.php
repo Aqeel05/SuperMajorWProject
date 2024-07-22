@@ -3,9 +3,9 @@
         <div class="py-4">
             <h3 class="font-medium text-lg text-gray-900">
                 @if ($note->title === "" || $note->title === null)
-                    (No title) - Editing
+                (No title) - Editing
                 @else
-                    {{ $note->title }} - Editing
+                {{ $note->title }} - Editing
                 @endif
             </h3>
             <p class="text-gray-600">
@@ -18,9 +18,8 @@
             @csrf <!--csrf token to protect against csrf attacks-->
             @method('PUT')
             <div class="bg-white rounded-md p-4">
-                <p class="font-medium text-gray-900">Note title</p>
-                <textarea name="title" rows="2" class="w-full text-gray-600 resize-none rounded-md" placeholder="Title">
-                    {{ $note->title }}
+                <label for="title" class="font-medium text-gray-900">Note title</label>
+                <textarea id="title" name="title" rows="2" class="w-full text-gray-600 resize-none rounded-md" placeholder="Title">{{ $note->title }}
                 </textarea>
                 <p class="text-gray-600">You may enter a maximum of 200 bytes or leave this space blank.</p>
                 <p class="text-red-600">
@@ -28,9 +27,8 @@
                         {{ $error }}
                     @endforeach
                 </p><br>
-                <p class="font-medium text-gray-900">Note contents</p>
-                <textarea name="note" rows="10" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents">
-                    {{ $note->note }}
+                <label for="note" class="font-medium text-gray-900">Note contents</label>
+                <textarea id="note" name="note" rows="10" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents">{{ $note->note }}
                 </textarea>
                 <p class="text-gray-600">You may enter a maximum of 65,536 bytes.</p>
                 <p class="text-red-600">

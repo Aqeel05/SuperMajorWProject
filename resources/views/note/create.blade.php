@@ -5,17 +5,17 @@
         </div>
         <form action="{{ route('note.store') }}" method="POST">
             @csrf <!--csrf token to protect against csrf attacks-->
-            <div class="bg-white rounded-md p-4 mb-4">
-                <p class="font-medium text-gray-900">Note title</p>
-                <textarea name="title" rows="2" class="w-full text-gray-600 resize-none rounded-md" placeholder="Title"></textarea>
+            <div class="bg-white rounded-md p-4">
+                <label for="title" class="font-medium text-gray-900">Note title</label>
+                <textarea id="title" name="title" rows="2" class="w-full text-gray-600 resize-none rounded-md" placeholder="Title"></textarea>
                 <p class="text-gray-600">You may enter a maximum of 200 bytes or leave this space blank.</p>
                 <p class="text-red-600">
                     @foreach ($errors->get('title') as $error)
                         {{ $error }}
                     @endforeach
                 </p><br>
-                <p class="font-medium text-gray-900">Note contents</p>
-                <textarea name="note" rows="10" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents"></textarea>
+                <label for="note" class="font-medium text-gray-900">Note contents</label>
+                <textarea id="note" name="note" rows="10" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents"></textarea>
                 <p class="text-gray-600">You may enter a maximum of 65,536 bytes.</p>
                 <p class="text-red-600">
                     @foreach ($errors->get('note') as $error)
@@ -23,7 +23,7 @@
                     @endforeach
                 </p>
             </div>
-            <div>
+            <div class="pt-4">
                 <button class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
                     {{ __('Create note') }}
                 </button>

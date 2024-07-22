@@ -59,8 +59,8 @@
                             <x-dropdown-link :href="route('note.index')" :active="request()->routeIs('note.index')">
                                 {{ __('Notes') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('chatbot.index')" :active="request()->routeIs('chatbot.index')">
-                                {{ __('Chatbot') }}
+                            <x-dropdown-link :href="route('bookings.index')" :active="request()->routeIs('bookings.index')">
+                                {{ __('Bookings') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
                                 {{ __('Analytics') }}
@@ -122,7 +122,7 @@
                             style="display: none;"
                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
                         >
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
@@ -185,8 +185,8 @@
                 <x-responsive-nav-link :href="route('note.index')" :active="request()->routeIs('note.index')">
                     {{ __('Notes') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('chatbot.index')" :active="request()->routeIs('chatbot.index')">
-                    {{ __('Chatbot') }}
+                <x-responsive-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.index')">
+                    {{ __('Bookings') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
                     {{ __('Analytics') }}

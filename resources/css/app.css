@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 /* Table CSS */
-th, td {
+#data-table th, td {
   text-align: left;
 }
 
-th {
+#data-table th {
   border-bottom: 2px solid black;
   font-weight: 600;
 }
 
-td {
+#data-table td {
   border-bottom: 1px solid black;
 }
 
@@ -29,6 +29,44 @@ td {
     align-items: center;
     justify-content: center;
     gap: 10px; /* Adjust the spacing between items */
+  }
+
+  /* CSS for the calendar wrapper */
+  .calendar-wrapper {
+    padding: 2em;
+  }
+
+  .calendar-wrapper table {
+    clear: both;
+    width: 100%;
+    border: 1px solid #dcdcff;
+    border-radius: 3px;
+    border-collapse: collapse;
+    color: #444;
+  }
+  .calendar-wrapper td {
+    height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #dcdcff;
+    border-top: 1px solid #dcdcff;
+    width: 14.28571429%;
+  }
+  .calendar-wrapper thead td {
+    border: none;
+    color: #28283b;
+    text-transform: uppercase;
+    font-size: 1.5em;
+  }
+
+  .calendar-wrapper td.not-current {
+    color: #c0c0c0;
+  }
+
+  .calendar-wrapper td.today {
+    font-weight: 600;
+    color: rgb(22, 163, 74);
+    font-size: 1.25rem;
   }
 
   /* CSS for the notes page, to be unused */

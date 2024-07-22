@@ -16,7 +16,7 @@
             <p class="text-sm text-gray-600">Required; 1 - 100 characters long</p>
         </div>
 
-        <!-- Email Address -->
+        <!-- Email address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block my-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
@@ -37,9 +37,9 @@
             <p class="text-sm text-gray-600">Required</p>
         </div>
 
-        <!-- Confirm Password -->
+        <!-- Confirm password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirm password')" />
 
             <x-text-input id="password_confirmation" class="block my-1 w-full"
                             type="password"
@@ -47,6 +47,22 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             <p class="text-sm text-gray-600">Required; must be the same as Password</p>
+        </div>
+
+        <!-- Radio buttons for users to sign up as either a patient or staff -->
+        <div class="mt-4">
+            <p class="font-medium text-sm text-gray-700">Account type</p>
+            <div class="mt-1 flex flex-col space-y-1">
+                <div class="border border-gray-300 rounded-md shadow-sm px-2 py-1">
+                    <input type="radio" id="patient" name="account_type_id" value=1 class="text-green-500 focus:ring-green-500">
+                    <label for="patient" class="text-sm text-gray-600">Patient</label>
+                </div>
+                <div class="border border-gray-300 rounded-md shadow-sm px-2 py-1">
+                    <input type="radio" id="staff" name="account_type_id" value=2 class="text-green-500 focus:ring-green-500">
+                    <label for="staff" class="text-sm text-gray-600">Staff</label>
+                </div>
+            </div>
+            <x-input-error :messages="$errors->get('account_type_id')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4 space-x-4">

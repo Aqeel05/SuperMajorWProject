@@ -45,6 +45,8 @@
             Previous description was: Our virtual agent is here to help you;
             Previous hex colour was: 2E7FF1
         -->
+
+        @auth
         <script type="text/javascript">
             (function(d, t) {
                 var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -58,5 +60,6 @@
                 v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
             })(document, 'script');
         </script>
+        @endauth
     </footer>
 </html>

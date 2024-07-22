@@ -2,8 +2,44 @@
 
 > To better understand what has been done in each commit, commit descriptions may be noted down.<br>
 > *Italic* text refers to classes.<br>
-> **Bolded** text refers to file names.<br>
-> ***Bolded, italic*** text refers to project directories.
+> **Bolded** text refers to file names or directories.<br>
+> Do or do not. There is no try.
+
+## 22/7 by Jayson on test-branch-1 - Added bookings and fixed some CSS
+
+### Additions and removals
+
+- Added code to allow users to register as either a patient or staff.
+    - In **app/Models/User.php**: Added account_type_id as a fillable.
+    - In **database/factories/UserFactory.php**: Set the user factory to produce a user with an account_type_id of 1 by default.
+    - In **app/Http/Requests/ProfileUpdateRequest.php**: Set rules for account_type_id validation.
+    - In **register.blade.php** and **update-profile-information-form.blade.php**: Added radio buttons.
+    - In **app/Http/Controllers/Auth/RegisteredUserController.php**: Added validations for account_type_id.
+    - Note: A change to their patient/staff status previously could not be made unless they edit it in a MySQL accessing software.
+- Added calendar JavaScript to be used in the bookings index page, and updated the Vite config to load that code upon accessing said page. This is because this code is loaded using Vite, requiring the config to be updated.
+- Added code for a new feature: bookings. Patients are able to arrange bookings with our website and staff are able to assign themselves to bookings.
+    - Added routes for booking pages.
+    - Added the controller, model, factory, and migration file.
+    - Allowed the DatabaseSeeder to use bookings.
+    - Patients are able to create bookings, read their own bookings, edit all details of their own bookings except the staff assignment, and delete their own bookings.
+    - Staff are able to read and edit all bookings, including assigning themselves to the booking. However, once they assign themselves, it cannot be undone.
+- Removed routes towards the chatbot pages. The chatbot pages and controller are still present.    
+- Removed the default value of 1 for account_type_id in the migration file that creates the users table.
+
+### Modifications
+
+- Changed the erroneous p sections in note pages' forms to label sections. This is for accessibility purposes.
+- Changed the NoteFactory to produce a note with content "This is an example note" by default.
+- Fixed an issue where unintended white spaces would appear in note pages' textarea sections by removing white spaces in the code itself.
+- Replaced the margin in the note create form to a padding that extends from the top of the div containing the create button.
+- The account data table page no longer mentions phpMyAdmin and instead mentions a generalisation of it - "database viewer".
+- The Influx and Alpine sections in the About page have switched places now comes first due to Influx's significance in our entire project.
+- The MQTT section is now just before the MySQL section - same reason.
+- The sections in the about page can now be opened and closed.
+- Removed constant capitalisation in the user registration and update pages.
+- Uncommented the MAIL_FROM_ADDRESS and MAIL_FROM_NAME attributes from .env.example.
+
+
 
 ## 12/7 by Jayson on test-branch-1 - Added implementation for Voiceflow.
 
@@ -42,7 +78,7 @@
 ### Additions and removals
 
 - Added a script to implement Alpine.js.
-- Added Alpine.js image and an svg of our application logo into ***public/pictures***.
+- Added Alpine.js image and an svg of our application logo into **public/pictures**.
 - Added **target:** *_blank* to all href sections in the about page, which opens links in a new tab.
 - Added the class *space-x-4* to the bottom flex element, and removed the class *ms-3* or *ms-4* to the bottom right buttons, in these pages:
     - **forgot-password.blade.php**

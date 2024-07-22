@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountDatatableController;
+use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\HomeController;
@@ -27,8 +28,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/analytics/dashboard', [AnalyticsController::class, 'display'])->name('analytics.display');
     Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
 
-    // Chatbot (AI Physiology Assistant?) Routes
-    Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot.index');
+    // Booking routes
+    //! The chatbot routes have been removed.
+    Route::resource('bookings', BookingsController::class);
 
     // Note Routes
     Route::resource('note', NoteController::class);

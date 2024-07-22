@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Note>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Booking>
  */
-class NoteFactory extends Factory
+class BookingFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
-            'note' => "This is an example note",
+            'booking_date' => now(),
             'user_id' => 1
         ];
     }
