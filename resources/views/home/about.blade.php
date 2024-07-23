@@ -25,7 +25,7 @@
                     <div class="bg-white rounded-md p-4">
                         <p class="font-medium text-gray-900">1: Patient registration</p>
                         <p x-show="open1" class="text-gray-600" style="display: none;">
-                            A patient first has to register. Their details are stored in the users table of the MySQL database, accessible via phpMyAdmin.<br>
+                            A patient first has to register. Their details are stored in the users table of the MySQL database, accessible via a database viewer tool.<br>
                             To access pages other than the index and about pages, their email needs to be verified. Upon request, the email service provider
                             will send an email to the intended email address that allows them to verify their email.
                         </p>
@@ -254,7 +254,7 @@
                             </div>
                             <div class="flex-1">
                                 <p class="font-medium text-gray-900">phpMyAdmin</p>
-                                <p x-show="open2" class="text-gray-600" style="display: none;">phpMyAdmin was used to examine MySQL databases before it was replaced by AWS Relational Database Services.</p>
+                                <p x-show="open2" class="text-gray-600" style="display: none;">phpMyAdmin is the first database viewer tool used to examine MySQL databases. It is planned to be replaced by AWS Relational Database Services.</p>
                             </div>
                             <div class="flex-none">
                                 <div class="flex items-center justify-end">

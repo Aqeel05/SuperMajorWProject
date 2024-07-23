@@ -7,7 +7,7 @@
             @csrf <!--csrf token to protect against csrf attacks-->
             <div class="bg-white rounded-md p-4">
                 <label for="title" class="font-medium text-gray-900">Note title</label>
-                <textarea id="title" name="title" rows="2" class="w-full text-gray-600 resize-none rounded-md" placeholder="Title"></textarea>
+                <textarea id="title" name="title" rows="2" maxlength="200" class="w-full text-gray-600 resize-none rounded-md" placeholder="Title"></textarea>
                 <p class="text-gray-600">You may enter a maximum of 200 bytes or leave this space blank.</p>
                 <p class="text-red-600">
                     @foreach ($errors->get('title') as $error)
@@ -15,7 +15,7 @@
                     @endforeach
                 </p><br>
                 <label for="note" class="font-medium text-gray-900">Note contents</label>
-                <textarea id="note" name="note" rows="10" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents"></textarea>
+                <textarea required id="note" name="note" rows="10" maxlength="65536" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents"></textarea>
                 <p class="text-gray-600">You may enter a maximum of 65,536 bytes.</p>
                 <p class="text-red-600">
                     @foreach ($errors->get('note') as $error)

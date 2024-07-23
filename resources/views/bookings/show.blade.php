@@ -15,16 +15,15 @@
         </div>
         <div class="bg-white rounded-md p-4">
             <label for="booking_date" class="font-medium text-gray-900">Booking date</label>
-            <input disabled type="datetime-local" id="booking_date" name="booking_date" value="{{ $booking->booking_date }}" class="ml-2">
+            <input disabled type="datetime-local" id="booking_date" name="booking_date" value="{{ $booking->booking_date }}" class="ml-2 rounded-md">
         </div>
         <section x-data="{open: false}">
             <div x-show="!open" class="flex pt-4">
-                <a href="{{ route('bookings.index', $booking) }}">
+                <a href="{{ route('bookings.index') }}">
                     <button class="inline-flex items-center border px-2 py-1 bg-white rounded-l-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
                         {{ __('Back to Bookings') }}
                     </button>
                 </a>
-                @if (Auth::user()->account_type_id === 1)
                 <a href="{{ route('bookings.edit', $booking) }}">
                     <button class="inline-flex items-center border px-2 py-1 bg-white hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
                         {{ __('Edit') }}
@@ -35,13 +34,6 @@
                         {{ __('Delete') }}
                     </button>
                 </a>
-                @elseif (Auth::user()->account_type_id === 2)
-                <a href="{{ route('bookings.edit', $booking) }}">
-                    <button class="inline-flex items-center border px-2 py-1 bg-white rounded-r-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
-                        {{ __('Edit') }}
-                    </button>
-                </a>
-                @endif
             </div>
             <div x-show="open" x-cloak class="pt-4">
                 <h3 class="font-medium text-lg text-red-600">Are you sure you want to delete this booking?</h3>

@@ -166,7 +166,7 @@
         x-transition.opacity
         x-transition.duration.200ms
         style="display: none;"
-        class="sm:hidden"
+        class="absolute bg-white w-full z-10 sm:hidden"
     >
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home.index')" :active="request()->routeIs('home.index')">

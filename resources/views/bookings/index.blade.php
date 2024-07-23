@@ -1,6 +1,62 @@
 <x-app-layout>
     <!-- Script -->
     @vite(['resources/js/calendar.js'])
+    <script>
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("data-table");
+            switching = true;
+            //Set the sorting direction to ascending:
+            dir = "asc"; 
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /*check if the two rows should switch place,
+                    based on the direction, asc or desc:*/
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch= true;
+                        break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                    and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    //Each time a switch is done, increase this count by 1:
+                    switchcount ++;      
+                } else {
+                    /*If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again.*/
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
     <header>
         <!-- Header section -->
         <div class="bg-green-100 p-4">
@@ -11,7 +67,7 @@
                     @if (Auth::user()->account_type_id === 1)
                     your bookings.
                     @elseif (Auth::user()->account_type_id === 2)
-                    all patients' bookings. For more information, visit a database viewer.
+                    all patients' bookings. For more detailed information, visit a database viewer tool.
                     @endif
                 </p>
                 @if (Auth::user()->account_type_id === 1)
@@ -27,8 +83,8 @@
         </div>
     </header>
     <main>
-        <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4">
-            <div class="lg:w-1/2 mx-auto p-4">
+        <div class="flex flex-col lg:flex-row lg:space-x-4">
+            <div class="w-4/5 lg:w-1/2 min-w-80 max-w-xl mx-auto p-2 sm:p-4">
                 <div class="calendar-wrapper rounded-md bg-white shadow-sm">
                 <div class="flex justify-between">
                     <button id="btnPrev" type="button" class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">Prev</button>
@@ -43,13 +99,13 @@
                     <table id="data-table" class="table-auto w-full">
                         <thead>
                             <tr>
-                                <th class="p-2 text-gray-900">ID</th>
+                                <th onclick="sortTable(0)" class="p-2 text-gray-900">ID</th>
                                 @if (Auth::user()->account_type_id === 2)
-                                <th class="p-2 text-gray-900">Patient ID</th>
+                                <th onclick="sortTable(1)" class="p-2 text-gray-900">Patient ID</th>
                                 @endif
-                                <th class="p-2 text-gray-900">Booking date</th>
-                                <th class="p-2 text-gray-900">Staff ID</th>
-                                <th class="p-2 text-gray-900">Created at</th>
+                                <th onclick="sortTable(2)" class="p-2 text-gray-900">Booking date</th>
+                                <th onclick="sortTable(3)" class="p-2 text-gray-900 hidden sm:table-cell">Staff ID</th>
+                                <th onclick="sortTable(4)" class="p-2 text-gray-900 hidden sm:table-cell">Created at</th>
                                 <th class="p-2 text-gray-900">Actions</th>
                             </tr>
                         </thead>
@@ -64,15 +120,11 @@
                                         {{ $booking->booking_date }}<br>
                                         {{ date_diff(date_create(), date_create($booking->booking_date))->format("%R%ad %hh") }}
                                     </td>
-                                    <td class="p-2 text-gray-600">
-                                        <!-- Needs to have a null if statement because staff_id can be null -->
-                                        @if ($booking->staff_id === null)
-                                        Null
-                                        @else
-                                        {{ $booking->staff_id }}
-                                        @endif
+                                    <td class="p-2 text-gray-600 hidden sm:table-cell">
+                                        <!-- Needs to have a null coalescence because staff_id can be null -->
+                                        {{ $booking->staff_id ?? "Null" }}
                                     </td>
-                                    <td class="p-2 text-gray-600">{{ $booking->created_at }}</td>
+                                    <td class="p-2 text-gray-600 hidden sm:table-cell">{{ $booking->created_at }}</td>
                                     <td class="p-2 text-gray-600">
                                         <div class="flex items-center">
                                             <a href="{{ route('bookings.show', $booking) }}">

@@ -5,16 +5,39 @@
 > **Bolded** text refers to file names or directories.<br>
 > Do or do not. There is no try.
 
+## 23/7 by Jayson on test-branch-1 - Minor cleanup to prepare for integration
+
+### Additions and removals
+
+- Added **sortTable.js**, the JavaScript file whose code is used in the script sections of the account data and booking index pages.
+- Removed the test area in the home index page and moved it to another file in the unused directory.
+
+### Modifications
+
+- Account and booking data tables are now sortable.
+- Changed some calendar CSS and JavaScript.
+- Fixed an issue in the bookings index page where the calendar would be too small at smaller screen sizes, by extending the calendar to *w-4/5* at said screen sizes.
+- Fixed an issue with white spaces again (first mentioned in the 22/7 commit).
+- Introduced some null coalescence sections in aforementioned data tables.
+- Note titles can now span more than 1 line.
+- Staff can now delete bookings.
+- The account data table is no longer visible until the sm screen size breakpoint. A message has been added to reflect this.
+- The booking index page no longer has the *space-y-4* class.
+- The navigation menu that appears on small screens now has position: absolute, preventing it from pushing pages downward.
+- Various inputs in the note create and edit pages are now required and/or have a max length.
+
+
+
 ## 22/7 by Jayson on test-branch-1 - Added bookings and fixed some CSS
 
 ### Additions and removals
 
 - Added code to allow users to register as either a patient or staff.
-    - In **app/Models/User.php**: Added account_type_id as a fillable.
-    - In **database/factories/UserFactory.php**: Set the user factory to produce a user with an account_type_id of 1 by default.
-    - In **app/Http/Requests/ProfileUpdateRequest.php**: Set rules for account_type_id validation.
+    - In **app/Models/User.php**: Added *account_type_id* as a fillable.
+    - In **database/factories/UserFactory.php**: Set the user factory to produce a user with an *account_type_id* of 1 by default.
+    - In **app/Http/Requests/ProfileUpdateRequest.php**: Set rules for *account_type_id* validation.
     - In **register.blade.php** and **update-profile-information-form.blade.php**: Added radio buttons.
-    - In **app/Http/Controllers/Auth/RegisteredUserController.php**: Added validations for account_type_id.
+    - In **app/Http/Controllers/Auth/RegisteredUserController.php**: Added validations for *account_type_id*.
     - Note: A change to their patient/staff status previously could not be made unless they edit it in a MySQL accessing software.
 - Added calendar JavaScript to be used in the bookings index page, and updated the Vite config to load that code upon accessing said page. This is because this code is loaded using Vite, requiring the config to be updated.
 - Added code for a new feature: bookings. Patients are able to arrange bookings with our website and staff are able to assign themselves to bookings.
@@ -24,7 +47,7 @@
     - Patients are able to create bookings, read their own bookings, edit all details of their own bookings except the staff assignment, and delete their own bookings.
     - Staff are able to read and edit all bookings, including assigning themselves to the booking. However, once they assign themselves, it cannot be undone.
 - Removed routes towards the chatbot pages. The chatbot pages and controller are still present.    
-- Removed the default value of 1 for account_type_id in the migration file that creates the users table.
+- Removed the default value of 1 for *account_type_id* in the migration file that creates the users table.
 
 ### Modifications
 

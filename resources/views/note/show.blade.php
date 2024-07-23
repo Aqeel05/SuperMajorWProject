@@ -16,12 +16,11 @@
         </div>
         <div class="bg-white rounded-md p-4">
             <!-- No white spaces should be inserted here, as that will create an unnecessarily large gap between the start of the text area and the text itself. -->
-            <textarea disabled name="note" rows="10" class="w-full text-gray-600 resize-none border-none">{{ $note->note }}
-            </textarea>
+            <textarea disabled name="note" rows="10" class="w-full text-gray-600 resize-none border-none">{{ $note->note }}</textarea>
         </div>
         <section x-data="{open: false}">
             <div x-show="!open" class="flex pt-4">
-                <a href="{{ route('note.index', $note) }}">
+                <a href="{{ route('note.index') }}">
                     <button class="inline-flex items-center border px-2 py-1 bg-white rounded-l-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">
                         {{ __('Back to Notes') }}
                     </button>

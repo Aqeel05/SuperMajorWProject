@@ -18,10 +18,10 @@
             @method('PUT')
             <div class="bg-white rounded-md p-4">
                 <label for="booking_date" class="font-medium text-gray-900">Booking date</label>
-                <input type="datetime-local" id="booking_date" name="booking_date" value="{{ $booking->booking_date }}" class="ml-2"><br>
+                <input required type="datetime-local" id="booking_date" name="booking_date" value="{{ $booking->booking_date }}" class="ml-2 rounded-md"><br><br>
                 @if (Auth::user()->account_type_id === 2)
                 <label for="staff" class="font-medium text-gray-900">Booking assignment</label>
-                <select name="staff_id" id="staff">
+                <select required name="staff_id" id="staff" class="ml-2 rounded-md">
                     <option value="{{$booking->staff_id}}">Keep old assignment</option>
                     <option value="{{Auth::user()->id}}">Assign yourself</option>
                 </select>

@@ -100,7 +100,7 @@ class BookingsController extends Controller
 
     /**
      * Remove the specified booking from storage.
-     * Only patients may perform this action.
+     * Patients and staff may perform this action.
      */
     public function destroy(Booking $booking)
     {

@@ -58,8 +58,12 @@ var Cal = function(divId) {
     var html = '<table>';
     // Write selected month and year
     html += '<thead><tr>';
-    html += '<td colspan="7">' + this.Months[m] + ' ' + y + '</td>';
-    html += '</tr></thead>';
+    html += '<td colspan="7">';
+    html += '<div class="month">'; // Start capitalised month div
+    html += this.Months[m]; // Write capitalised month in small font on top
+    html += '</div><div>'; // End first div, start next div
+    html += y + '/' + (m + 1); // Write numeric month and year
+    html += '</div></td></tr></thead>'; // End next div and table heading
     // Write the header of the days of the week
     html += '<tr class="days">';
     for(var i=0; i < this.DaysOfWeek.length;i++) {

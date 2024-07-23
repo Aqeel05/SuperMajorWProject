@@ -7,7 +7,7 @@
             @csrf <!--csrf token to protect against csrf attacks-->
             <div class="bg-white rounded-md p-4 mb-4">
                 <label for="booking_date" class="font-medium text-gray-900">Booking date</label>
-                <input type="datetime-local" id="booking_date" name="booking_date" class="ml-2">
+                <input required type="datetime-local" id="booking_date" name="booking_date" class="ml-2 rounded-md">
                 <p class="text-gray-600">It is recommended to book at least 14 days in advance to let the staff know of your booking.</p>
                 <p class="text-red-600">
                     @foreach ($errors->get('booking_date') as $error)
