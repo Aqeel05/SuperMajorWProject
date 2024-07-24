@@ -1,9 +1,4 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
     "require": {
         "php": "^8.2",
         "bluerhinos/phpmqtt": "^1.0",
@@ -13,6 +8,9 @@
         "nesbot/carbon": "^3.4",
         "php-mqtt/client": "^2.1",
         "predis/predis": "^2.2",
+        "pusher/pusher-php-server": "*",
+        "symfony/http-foundation": "^7.0",
+        "react/socket": "^1.0",
         "resend/resend-php": "^0.12.0"
     },
     "require-dev": {

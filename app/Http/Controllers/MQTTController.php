@@ -1,33 +1,40 @@
 <?php
-/*
 namespace App\Http\Controllers;
 
-use App\Services\MqttService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
+use App\Services\InfluxDBService;
 
-class MqttController extends Controller
+class MQTTController extends Controller
 {
-    protected $mqttService;
+    protected $influxDBService;
 
-    public function __construct(MqttService $mqttService)
+    public function __construct(InfluxDBService $influxDBService)
     {
-        $this->mqttService = $mqttService;
+        $this->influxDBService = $influxDBService;
     }
 
-    public function subscribeToTopic()
+    public function saveMessage(Request $request)
     {
-        $topic = 'sensor_data';
-        $this->mqttService->subscribe($topic);
+        $message = $request->input('message');
+        $parsedMessage = json_decode($message, true);
 
-        return response()->json(['message' => 'Subscribed to topic.']);
-    }
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $measurement = 'mqtt_data';
+            $tags = [
+                'topic' => 'sensor_data', // or any relevant tag
+            ];
+            $fields = [
+                'value' => (float) $parsedMessage['value'],
+                'quadrantID' => $parsedMessage['quadrantID'],
+            ];
+            $time = strtotime($parsedMessage['timestamp']);
 
-    public function unsubscribeFromTopic()
-    {
-        $topic = 'sensor_data';
-        $this->mqttService->unsubscribe($topic);
+            $this->influxDBService->writeData($measurement, $tags, $fields, $time);
 
-        return response()->json(['message' => 'Unsubscribed from topic.']);
+            return response()->json(['status' => 'success'], 200);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Invalid JSON'], 400);
+        }
     }
 }
+

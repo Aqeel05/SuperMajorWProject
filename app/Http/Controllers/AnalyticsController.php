@@ -42,15 +42,15 @@ class AnalyticsController extends Controller
         return view('analytics.index', compact('data'));
     }
 
+    public function mqttSend()
+    {
+        return view('analytics.sending');
+    }
+
 
     public function send()
     {
         return view('analytics.send');
-    }
-
-    public function display()
-    {
-        return view('analytics.dashboard');
     }
 
     public function storeData(Request $request)

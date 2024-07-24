@@ -1,51 +1,60 @@
 <?php
-
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountDatatableController;
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\AnalyticsController;
-use App\Http\Controllers\ChatbotController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MqttController;
-use App\Http\Controllers\NoteController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\SessionController;
 
 // Public Routes
 Route::redirect('/', '/home')->name('dashboard');
-
-// Home Routes
+// {Home Routes}
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
-Route::get('/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/home/about', [HomeController::class, 'about'])->name('home.about');
 
-// To enter this middleware section, user must be authenticated and verified
+// To enter middleware user must be authenticated and verified
 Route::middleware(['auth', 'verified'])->group(function() {
-    // Account Datatable (staff only) Routes
-    Route::resource('accountData', AccountDatatableController::class);
 
-    // Analytics Routes
-    Route::get('/analytics', [AnalyticsController::class, 'showData'])->name('analytics.index');
-    Route::get('/analytics/send', [AnalyticsController::class, 'send'])->name('analytics.send');
-    Route::get('/analytics/dashboard', [AnalyticsController::class, 'display'])->name('analytics.display');
-    Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
+    // Note Routes
+    //Route::get('/note', [NoteController::class, 'index'])->name('note.index');
+    //Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
+    //Route::post('/note', [NoteController::class, 'store'])->name('note.store');
+    //Route::get('/note/{note}', [NoteController::class, 'show'])->name('note.show');
+    //Route::get('/note/{note}/edit', [NoteController::class, 'edit'])->name('note.edit');
+    //Route::put('/note/{note}', [NoteController::class, 'update'])->name('note.update');
+    //Route::delete('/note/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
 
-    // Booking routes
-    //! The chatbot routes have been removed.
-    Route::resource('bookings', BookingsController::class);
+    // OR
 
     // Note Routes
     Route::resource('note', NoteController::class);
 
+    // History Routes
+    Route::get('/history', [HistoryController::class, 'display'])->name('history.index');
+
+    // Analytics Routes
+    Route::get('/analytics', [AnalyticsController::class, 'showData'])->name('analytics.index');
+    Route::get('/analytics/sending', [AnalyticsController::class, 'mqttSend'])->name('analytics.sending');
+    Route::get('/analytics/send', [AnalyticsController::class, 'send'])->name('analytics.send');
+    Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
+
     // MQTT Subscription/Unsubscription Routes
-    //Route::post('/analytics/subscribe', [MqttController::class, 'subscribeToMqtt'])->name('mqtt.subscribe');
-    //Route::post('/analytics/unsubscribe', [MqttController::class, 'unsubscribeToMqtt'])->name('mqtt.unsubscribe');
+    Route::post('/save-mqtt-message', [MqttController::class, 'saveMessage']);
 
-    //Route::get('/subscribe', [MqttController::class, 'subscribeToTopic']);
-    //Route::get('/unsubscribe', [MqttController::class, 'unsubscribeFromTopic']);
+    // Session controller Routes
+    Route::post('/start-session', [SessionController::class, 'startSession']);
+    Route::post('/stop-session', [SessionController::class, 'stopSession']);
 
+
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::resource('sessions', SessionController::class)->except(['create', 'edit']);
 
 });
 
-// To enter this middleware section, user must be authenticated
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

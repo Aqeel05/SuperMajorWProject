@@ -3,31 +3,47 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class MqttMessageReceived implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use InteractsWithSockets, SerializesModels;
 
-    public $data;
+    public $topic;
+    public $message;
 
-    public function __construct($data)
+    /**
+     * Create a new event instance.
+     *
+     * @param string $topic
+     * @param string $message
+     * @return void
+     */
+    public function __construct($topic, $message)
     {
-        $this->data = $data;
+        $this->topic = $topic;
+        $this->message = $message;
     }
 
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return Channel
+     */
     public function broadcastOn()
     {
         return new Channel('mqtt-messages');
     }
 
-    public function broadcastAs()
+    /**
+     * The data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
     {
-        return 'mqtt.message.received';
+        return ['topic' => $this->topic, 'message' => $this->message];
     }
 }

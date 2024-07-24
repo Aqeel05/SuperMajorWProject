@@ -25,6 +25,12 @@
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
+            <!-- Back to Home Button -->
+            <div class="flex items-center justify-center mt-4">
+                <a href="{{ route('home.index') }}" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    {{ __('Back to Home') }}
+                </a>
+            </div>
         </div>
     </body>
 </html>
