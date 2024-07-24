@@ -52,10 +52,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
     Route::resource('sessions', SessionController::class)->except(['create', 'edit']);
 
-
-    // Calendar routes
-    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
-
 });
 
 Route::middleware('auth')->group(function () {
