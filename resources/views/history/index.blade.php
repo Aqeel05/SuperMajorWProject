@@ -1,12 +1,8 @@
 <x-app-layout>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Session History</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <style>
             body {
-                font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
                 background-color: #f8f9fa;
@@ -103,14 +99,14 @@
         </div>
         <div class="search-container">
             <input type="text" placeholder="Search...">
-            <button><i class="fas fa-search"></i></button>
+            <button>Search</button>
         </div>
         <table>
             <thead>
                 <tr>
                     <th>Session ID</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
+                    <th>Start time</th>
+                    <th>End time</th>
                     <th>Actions</th>
                 </tr>
             </thead>
