@@ -1,25 +1,40 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Jobs\ManageMqttSubscription;
+use Illuminate\Http\Request;
+use App\Services\InfluxDBService;
 
-class MqttController extends Controller
+class MQTTController extends Controller
 {
-    public function index()
+    protected $influxDBService;
+
+    public function __construct(InfluxDBService $influxDBService)
     {
-        return view('mqtt.index');
+        $this->influxDBService = $influxDBService;
     }
 
-    public function subscribe()
+    public function saveMessage(Request $request)
     {
-        ManageMqttSubscription::dispatch('subscribe');
-        return response()->json(['message' => 'Subscribed to MQTT topic']);
-    }
+        $message = $request->input('message');
+        $parsedMessage = json_decode($message, true);
 
-    public function unsubscribe()
-    {
-        ManageMqttSubscription::dispatch('unsubscribe');
-        return response()->json(['message' => 'Unsubscribed from MQTT topic']);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $measurement = 'mqtt_data';
+            $tags = [
+                'topic' => 'sensor_data', // or any relevant tag
+            ];
+            $fields = [
+                'value' => (float) $parsedMessage['value'],
+                'quadrantID' => $parsedMessage['quadrantID'],
+            ];
+            $time = strtotime($parsedMessage['timestamp']);
+
+            $this->influxDBService->writeData($measurement, $tags, $fields, $time);
+
+            return response()->json(['status' => 'success'], 200);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Invalid JSON'], 400);
+        }
     }
 }
+

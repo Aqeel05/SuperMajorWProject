@@ -1,184 +1,115 @@
 <x-app-layout>
-  <head>
-    
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>MQTT Over WebSockets Subscriber</title>
-    <style>
-        *,
-        *:before,
-        *:after {
-        box-sizing: border-box;
-        }
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" type="text/css" href="dashboard.css">
 
-        /****** Styling for the Layout ***********/
-        .wrapper {
-        background-color: rgb(247, 244, 244);
-        list-style-type: none;
-        padding: 0;
-        border-radius: 5px;
-        }
-        .form-row {
-        display: flex;
-        justify-content: flex-end;
-        padding: 0.5em;
-        }
-        .form-row > label {
-        padding: 1em;
-        flex: 1;
-        font-size: 1.2em;
-        font-weight: bold;
-        }
-        .form-row > input,
-        .form-row > textarea {
-        flex: 2;
-        }
-        .form-row > input,
-        .form-row > button,
-        .form-row > textarea {
-        padding: 0.5em;
-        resize: vertical;
-        margin: 10px 0;
-        box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
-        border-radius: 10px;
-        font-size: 1.2em;
-        }
-        .form-row > textarea {
-        font-size: 1.5em;
-        background-color: rgb(242, 248, 248);
-        text-align: center;
-        font-weight: bold;
-        }
-        .btn-container {
-        flex: 3;
-        column-gap: 10px;
-        display: flex;
-        }
-        .btn-container > button {
-        width: 50%;
-        border: 0;
-        padding: 1em;
-        box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
-        border-radius: 10px;
-        color: white;
-        font-size: 1.2em;
-        }
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/css/dashboard.css', 'resources/js/app.js', 'resources/js/analytics.js'])
 
-        #subscribe {
-        background-color: green;
-        }
-        #unsubscribe {
-        background-color: rgb(176, 6, 6);
-        }
+        <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+        <style>
+            .ratios-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 10px;
+                background-color: #f0f0f0;
+                padding: 10px;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .ratios {
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .ratio-text {
+                font-size: 1.2em;
+                font-weight: bold;
+                text-align: center;
+                margin: 5px;
+                border: 2px solid black;
+                padding: 5px;
+            }
+            .visualization-container {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            #heatmap, #chart, #foot3D {
+                width: 80%;
+                max-width: 800px;
+                margin: auto;
+            }
+            .refresh-btn {
+                display: block;
+                margin: 10px auto;
+                padding: 10px 20px;
+                font-size: 1em;
+                font-weight: bold;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .disabled-btn {
+                background-color: #ccc;
+                color: #666;
+                cursor: not-allowed;
+            }
+        </style>
+    </head>
+    <body>
+        <ul class="wrapper">
+            <li class="form-row">
+                <label for="topic">Topic</label>
+                <input type="text" id="topic" />
+            </li>
+            <li class="form-row">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="10" readonly></textarea>
+            </li>
+            <li class="form-row">
+                <label for="status">Status</label>
+                <input type="text" id="status" readonly />
+            </li>
+            <li class="form-row-save">
+                <label class="switch">
+                    <input type="checkbox" id="save-session-checkbox">
+                    <span class="slider"></span>
+                </label>
+                <label for="save-session-checkbox">Save Sessions</label>
+            </li>
+            <li class="form-row">
+                <div class="btn-container">
+                    <button type="button" id="subscribe">Start Session</button>
+                    <button type="button" id="unsubscribe">End Session</button>
+                    <button type="button" id="save-session">Download Session</button>
+                </div>
+            </li>
+        </ul>
 
-        #status {
-        background-color: lightcyan;
-        text-align: center;
-        font-weight: bold;
-        }
-    </style>
-    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-  </head>
-  <body>
-    <div class="line"></div>
-    <ul class="wrapper">
-      <li class="form-row">
-        <label for="topic">Topic</label>
-        <input type="text" id="topic" />
-      </li>
-      <li class="form-row">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="10" readonly></textarea>
-      </li>
-      <li class="form-row">
-        <label for="status">Status</label>
-        <input type="text" id="status" readonly />
-      </li>
-      <li class="form-row">
-        <div class="btn-container">
-          <button type="button" id="subscribe">Subscribe</button>
-          <button type="button" id="unsubscribe">Unsubscribe</button>
+        <button class="refresh-btn" id="refresh">Refresh Graphs</button>
+
+        <div class="line"></div>
+
+        <div class="visualization-container">
+            <div id='heatmap'></div>
         </div>
-      </li>
-    </ul>
-    <script>
-        let mqttClient;
 
-        window.addEventListener("load", (event) => {
-        connectToBroker();
+        <div id="chart-container">
+            <div id="chart"></div>
+        </div>
 
-        const subscribeBtn = document.querySelector("#subscribe");
-        subscribeBtn.addEventListener("click", function () {
-            subscribeToTopic();
-        });
+        <div class="visualization-container">
+            <div id="foot3D"></div>
+        </div>
 
-        const unsubscribeBtn = document.querySelector("#unsubscribe");
-        unsubscribeBtn.addEventListener("click", function () {
-            unsubscribeToTopic();
-        });
-        });
-
-        function connectToBroker() {
-        const clientId = "client" + Math.random().toString(36).substring(7);
-
-        // Change this to point to your MQTT broker
-        const host = "ws://localhost:9001/mqtt";
-
-        const options = {
-            keepalive: 60,
-            clientId: clientId,
-            protocolId: "MQTT",
-            protocolVersion: 4,
-            clean: true,
-            reconnectPeriod: 1000,
-            connectTimeout: 30 * 1000,
-        };
-
-        mqttClient = mqtt.connect(host, options);
-
-        mqttClient.on("error", (err) => {
-            console.log("Error: ", err);
-            mqttClient.end();
-        });
-
-        mqttClient.on("reconnect", () => {
-            console.log("Reconnecting...");
-        });
-
-        mqttClient.on("connect", () => {
-            console.log("Client connected:" + clientId);
-        });
-
-        // Received
-        mqttClient.on("message", (topic, message, packet) => {
-            console.log(
-            "Received Message: " + message.toString() + "\nOn topic: " + topic
-            );
-            const messageTextArea = document.querySelector("#message");
-            messageTextArea.value += message + "\r\n";
-        });
-        }
-
-        function subscribeToTopic() {
-        const status = document.querySelector("#status");
-        const topic = document.querySelector("#topic").value.trim();
-        console.log(`Subscribing to Topic: ${topic}`);
-
-        mqttClient.subscribe(topic, { qos: 0 });
-        status.style.color = "green";
-        status.value = "SUBSCRIBED";
-        }
-
-        function unsubscribeToTopic() {
-        const status = document.querySelector("#status");
-        const topic = document.querySelector("#topic").value.trim();
-        console.log(`Unsubscribing to Topic: ${topic}`);
-
-        mqttClient.unsubscribe(topic, { qos: 0 });
-        status.style.color = "red";
-        status.value = "UNSUBSCRIBED";
-        }
-    </script>
-  </body>
+    </body>
 </x-app-layout>

@@ -5,6 +5,9 @@ use App\Http\Controllers\NoteController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\MqttController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\SessionController;
 
 // Public Routes
 Route::redirect('/', '/home')->name('dashboard');
@@ -29,16 +32,30 @@ Route::middleware(['auth', 'verified'])->group(function() {
     // Note Routes
     Route::resource('note', NoteController::class);
 
+    // History Routes
+    Route::get('/history', [HistoryController::class, 'display'])->name('history.index');
+
     // Analytics Routes
     Route::get('/analytics', [AnalyticsController::class, 'showData'])->name('analytics.index');
     Route::get('/analytics/sending', [AnalyticsController::class, 'mqttSend'])->name('analytics.sending');
     Route::get('/analytics/send', [AnalyticsController::class, 'send'])->name('analytics.send');
-    Route::get('/analytics/dashboard', [AnalyticsController::class, 'display'])->name('analytics.display');
     Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
 
     // MQTT Subscription/Unsubscription Routes
-    Route::get('/mqtt/subscribe', [MqttController::class, 'subscribe'])->name('mqtt.subscribe');
-    Route::get('/mqtt/unsubscribe', [MqttController::class, 'unsubscribe'])->name('mqtt.unsubscribe');
+    Route::post('/save-mqtt-message', [MqttController::class, 'saveMessage']);
+
+    // Session controller Routes
+    Route::post('/start-session', [SessionController::class, 'startSession']);
+    Route::post('/stop-session', [SessionController::class, 'stopSession']);
+
+
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::resource('sessions', SessionController::class)->except(['create', 'edit']);
+
+
+    // Calendar routes
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+
 });
 
 Route::middleware('auth')->group(function () {

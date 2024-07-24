@@ -53,11 +53,6 @@ class AnalyticsController extends Controller
         return view('analytics.send');
     }
 
-    public function display()
-    {
-        return view('analytics.dashboard');
-    }
-
     public function storeData(Request $request)
     {
         $request->validate([

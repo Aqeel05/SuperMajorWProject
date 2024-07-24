@@ -29,8 +29,8 @@
                     <x-nav-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
                         {{ __('Analytics') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('analytics.display')" :active="request()->routeIs('analytics.display')">
-                        {{ __('Analytics Dashboard') }}
+                    <x-nav-link :href="route('history.index')" :active="request()->routeIs('history.index')">
+                        {{ __('Past Sessions') }}
                     </x-nav-link>
                     <x-nav-link :href="route('analytics.sending')" :active="request()->routeIs('analytics.sending')">
                         {{ __('Send MQTT') }}
@@ -112,9 +112,6 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
                     {{ __('Analytics') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('analytics.display')" :active="request()->routeIs('analytics.display')">
-                    {{ __('Analytics Dashboard') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('analytics.send')" :active="request()->routeIs('analytics.send')">
                     {{ __('Send Analytics') }}
