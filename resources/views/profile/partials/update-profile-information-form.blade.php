@@ -1,8 +1,8 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
-        </h2>
+        <h3 class="font-medium text-lg text-gray-900">
+            {{ __('Update profile') }}
+        </h3>
 
         <p class="mt-1 text-sm text-gray-600">
             {{ __("Update your account's profile information and email address.") }}
@@ -19,32 +19,30 @@
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="my-1 block w-full" :value="old('name', $user->name)" required autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <p class="text-sm text-gray-600">Required; 1 - 100 characters long</p>
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="my-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <p class="text-sm text-gray-600">Required; 1 - 200 characters long</p>
+        </div>
 
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Your email address is unverified.') }}
-
-                        <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            {{ __('Click here to re-send the verification email.') }}
-                        </button>
-                    </p>
-
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
+        <div>
+            <p class="block font-medium text-sm text-gray-700">Account type</p>
+            <div class="mt-1 flex flex-col space-y-1">
+                <div class="border border-gray-300 rounded-md shadow-sm px-2 py-1">
+                    <input type="radio" id="patient" name="account_type_id" value=1 class="text-green-500 focus:ring-green-500" required>
+                    <label for="patient" class="text-sm text-gray-600">Patient</label>
                 </div>
-            @endif
+                <div class="border border-gray-300 rounded-md shadow-sm px-2 py-1">
+                    <input type="radio" id="staff" name="account_type_id" value=2 class="text-green-500 focus:ring-green-500" required>
+                    <label for="staff" class="text-sm text-gray-600">Staff</label>
+                </div>
+            </div>
         </div>
 
         <div class="flex items-center gap-4">

@@ -1,11 +1,80 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Table CSS */
+#data-table th, td {
+  text-align: left;
+}
 
-* {
+#data-table th {
+  border-bottom: 2px solid black;
+  font-weight: 600;
+}
+
+#data-table td {
+  border-bottom: 1px solid black;
+}
+
+* 
+  /* Global CSS. Custom font name goes here. If font cannot be loaded, commonly available font (Helvetica) is used */
+  {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Lexend', Helvetica, sans-serif;
   }
+
+  /* CSS for the index header container */
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Adjust the spacing between items */
+  }
+
+  /* CSS for the calendar wrapper */
+  .calendar-wrapper {
+    padding: 2em;
+  }
+
+  .calendar-wrapper table {
+    clear: both;
+    width: 100%;
+    border: 1px solid rgb(220 252 231);
+    border-radius: 3px;
+    border-collapse: collapse;
+    color: #444;
+  }
+  .calendar-wrapper td {
+    height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    color: rgb(75 85 99);
+    border-right: 1px solid rgb(187 247 208);
+    border-top: 1px solid rgb(187 247 208);
+    width: 14.28571429%;
+  }
+  .calendar-wrapper thead td {
+    border: none;
+    color: rgb(17 24 39);
+    font-size: 1.25rem;
+  }
+
+  .calendar-wrapper thead td .month {
+    color: rgb(75 85 99);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+  }
+
+  .calendar-wrapper td.not-current {
+    color: #c0c0c0;
+  }
+
+  .calendar-wrapper td.today {
+    font-weight: 600;
+    color: rgb(22 163 74);
+    font-size: 1.25rem;
+  }
+
+  /* CSS for the notes page, to be unused */
   .note-container {
     max-width: 980px;
     margin: 0 auto;

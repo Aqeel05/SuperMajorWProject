@@ -5,14 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <!-- Title and favicon -->
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" type="image/x-icon" href="pictures/application-logo.svg">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=lexend:300,400,500,600,700&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <!-- CSS for loading spinner -->
         
@@ -67,4 +70,27 @@
             </main>
         </div>
     </body>
+    <footer>
+        <!--
+            Previous title was: Starting Template - Webchat;
+            Previous description was: Our virtual agent is here to help you;
+            Previous hex colour was: 2E7FF1
+        -->
+
+        @auth
+        <script type="text/javascript">
+            (function(d, t) {
+                var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                v.onload = function() {
+                    window.voiceflow.chat.load({
+                    verify: { projectID: '6690879b3bcb0b5459016ad4' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production'
+                    });
+                }
+                v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+            })(document, 'script');
+        </script>
+        @endauth
+    </footer>
 </html>

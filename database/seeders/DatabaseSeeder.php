@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Note;
+use App\Models\Booking;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('pass123.')
         ]);
 
-        Note::factory(100)->create();
+        Note::factory(1)->create();
+        Booking::factory(1)->create();
     }
 }

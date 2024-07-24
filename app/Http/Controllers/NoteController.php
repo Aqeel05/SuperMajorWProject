@@ -15,7 +15,7 @@ class NoteController extends Controller
         $notes = Note::query()
         ->where('user_id', request()->user()->id)
         ->orderBy('created_at', 'desc')
-        ->paginate();
+        ->paginate(10);
         return view('note.index', ['notes' => $notes]);
     }
 
@@ -33,7 +33,8 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'note' => ['required', 'string']
+            'note' => ['bail', 'required', 'string', 'max:65536'],
+            'title' => ['max:200']
         ]);
 
         $data['user_id'] = $request->user()->id;
@@ -43,7 +44,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource. Note in this case refers to the entire note + title
      */
     public function show(Note $note)
     {
@@ -73,7 +74,8 @@ class NoteController extends Controller
             abort(403);
         }
         $data = $request->validate([
-            'note' => ['required', 'string']
+            'note' => ['bail', 'required', 'string', 'max:65536'],
+            'title' => ['max:200']
         ]);
 
         $note->update($data);

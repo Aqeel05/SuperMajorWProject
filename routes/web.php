@@ -1,7 +1,8 @@
 <?php
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NoteController;
+use App\Http\Controllers\AccountDatatableController;
+use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\MqttController;
 use App\Http\Controllers\HomeController;
