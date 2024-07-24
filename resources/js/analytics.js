@@ -89,7 +89,7 @@ function stopSession() {
 function connectToBroker() {
     const clientId = "client" + Math.random().toString(36).substring(7);
 
-    const host = "ws://localhost:9001/mqtt";
+    const host = "ws://broker.hivemq.com:8000/mqtt";
 
     const options = {
         keepalive: 60,
