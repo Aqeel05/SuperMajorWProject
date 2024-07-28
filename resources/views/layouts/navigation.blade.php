@@ -38,8 +38,6 @@
                     <x-nav-link :href="route('analytics.send')" :active="request()->routeIs('analytics.send')">
                         {{ __('Send Analytics') }}
                     </x-nav-link>
-                    @endif  
-                    @endauth
                 </div>
                 @endauth
             </div>

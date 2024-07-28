@@ -7,8 +7,8 @@ use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\MqttController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\NoteController;
 
 // Public Routes
 Route::redirect('/', '/home')->name('dashboard');
@@ -33,6 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     // Note Routes
     Route::resource('note', NoteController::class);
 
+    // Account Datatable (staff only) Routes
+    Route::resource('accountData', AccountDatatableController::class);
+
     // History Routes
     Route::get('/history', [HistoryController::class, 'display'])->name('history.index');
 
@@ -44,6 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     // MQTT Subscription/Unsubscription Routes
     Route::post('/save-mqtt-message', [MqttController::class, 'saveMessage']);
+
+    // Bookings routes
+    Route::resource('bookings', BookingsController::class);
 
     // Session controller Routes
     Route::post('/start-session', [SessionController::class, 'startSession']);
