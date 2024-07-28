@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserSession extends Model
+class SessionRecord extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'session_id';
+    protected $primaryKey = 'id';
 
     protected $casts = [
-        'datetimes' => 'array',
+        'datetimes' => 'array', // Cast the datetimes column as an array
     ];
 
     protected $fillable = ['datetimes', 'user_id'];

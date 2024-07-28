@@ -383,7 +383,7 @@ function updateVisualizations() {
         const messageTime = new Date(timestamp).getTime();
 
         // Filter data to only include last few seconds
-        if (currentTime - messageTime <= 5000) {
+        if (currentTime - messageTime <= 10000) {
             footMatrix[row][column] = numericValue;
 
             console.log(`Updated footMatrix[${row}][${column}] to ${numericValue}`);

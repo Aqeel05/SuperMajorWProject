@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UserSession;
+use App\Models\SessionRecord;
 use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
     public function show($id)
     {
-        $session = UserSession::where('user_id', Auth::id())->findOrFail($id);
+        $session = SessionRecord::where('user_id', Auth::id())->findOrFail($id);
         return view('session-details', compact('session'));
     }
 
     public function destroy($id)
     {
-        $session = UserSession::where('user_id', Auth::id())->find($id);
+        $session = SessionRecord::where('user_id', Auth::id())->find($id);
         if ($session) {
             $session->delete();
             return response()->json(['success' => true]);
@@ -29,39 +29,39 @@ class SessionController extends Controller
         $user = Auth::user();
 
         // Check if there's an ongoing session that has not been stopped
-        $userSession = UserSession::where('user_id', $user->id)->latest()->first();
+        $SessionRecord = SessionRecord::where('user_id', $user->id)->latest()->first();
 
-        if ($userSession && count($userSession->datetimes) < 2) {
+        if ($SessionRecord && count($SessionRecord->datetimes) < 2) {
             // Update the existing session
-            $datetimes = $userSession->datetimes;
+            $datetimes = $SessionRecord->datetimes;
             if (count($datetimes) < 1) {
                 $datetimes[] = now()->toISOString();
-                $userSession->datetimes = $datetimes;
-                $userSession->save();
+                $SessionRecord->datetimes = $datetimes;
+                $SessionRecord->save();
             }
         } else {
             // Create a new session
-            $userSession = UserSession::create([
+            $SessionRecord = SessionRecord::create([
                 'user_id' => $user->id,
                 'datetimes' => [now()->toISOString()]
             ]);
         }
 
-        return response()->json(['success' => true, 'datetimes' => $userSession->datetimes]);
+        return response()->json(['success' => true, 'datetimes' => $SessionRecord->datetimes]);
     }
 
     public function stopSession(Request $request)
     {
         $user = Auth::user();
-        $userSession = UserSession::where('user_id', $user->id)->latest()->first();
+        $SessionRecord = SessionRecord::where('user_id', $user->id)->latest()->first();
 
-        if ($userSession) {
-            $datetimes = $userSession->datetimes;
+        if ($SessionRecord) {
+            $datetimes = $SessionRecord->datetimes;
 
             if (count($datetimes) == 1) {
                 $datetimes[] = now()->toISOString();
-                $userSession->datetimes = $datetimes;
-                $userSession->save();
+                $SessionRecord->datetimes = $datetimes;
+                $SessionRecord->save();
             }
 
             return response()->json(['success' => true, 'datetimes' => $datetimes]);
