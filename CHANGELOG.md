@@ -5,6 +5,32 @@
 > **Bolded** text refers to file names or directories.<br>
 > Do or do not. There is no try.
 
+## 24/7 by Jayson on test-branch-1 - First cleanup after the branch merge
+
+### Current issues
+
+- An unknown textarea appears on the top right while logged in.
+- There are errors in the pressure session history index page and the modal component.
+
+### Fixes
+
+- Fixed a lot of issues in many pages where old code would reappear by replacing them with the new code.
+
+### Additions and removals
+
+- Added messages to SessionController regarding the confusion between the HTTP sessions and pressure sessions table.
+- Added minimum and maximum length requirements to some inputs.
+- Removed the old pressure session migration table.
+
+### Modification
+
+- Changed the referred font in the guest layout to Lexend.
+
+
+## 24/7 by both on master and test-branch-1 - 6 commits total
+
+
+
 ## 23/7 by Jayson on test-branch-1 - Minor cleanup to prepare for integration
 
 ### Additions and removals
