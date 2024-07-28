@@ -18,7 +18,7 @@ class BookingFactory extends Factory
     {
         return [
             'booking_date' => now(),
-            'user_id' => 1
+            'patient_id' => 1
         ];
     }
 }

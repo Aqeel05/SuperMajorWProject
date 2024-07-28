@@ -3,12 +3,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountDatatableController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\BookingsController;
-use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MqttController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\PressureSessionController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SessionController;
 
 // Public routes
 Route::redirect('/', '/home')->name('dashboard');
@@ -37,15 +36,11 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('note', NoteController::class);
 
     // Pressure session history routes
-    Route::get('/history', [HistoryController::class, 'display'])->name('history.index');
-
-    // Session controller routes
-    Route::post('/start-session', [SessionController::class, 'startSession']);
-    Route::post('/stop-session', [SessionController::class, 'stopSession']);
-
-    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
-    Route::resource('sessions', SessionController::class)->except(['create', 'edit']);
-
+    //Route::get('/pressureSessions', [PressureSessionController::class, 'index'])->name('pressureSessions.index');
+    //Route::get('/pressureSessions/{id}', [PressureSessionController::class, 'show'])->name('pressureSessions.show');
+    Route::resource('pressureSessions', PressureSessionController::class);
+    Route::post('/start-session', [PressureSessionController::class, 'startSession']);
+    Route::post('/stop-session', [PressureSessionController::class, 'stopSession']);
 });
 
 // To enter this middleware section, user must be authenticated

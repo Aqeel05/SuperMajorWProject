@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_sessions', function (Blueprint $table) {
+        Schema::create('pressure_sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->json('datetimes'); // Store datetimes as a JSON array
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_sessions');
+        Schema::dropIfExists('pressure_sessions');
     }
 };

@@ -6,6 +6,7 @@
                 Created at {{ $booking->created_at }}.<br>
                 Updated at {{ $booking->updated_at }}.<br>
                 Booking id: {{ $booking->id }}<br>
+                Booking status: {{ $booking->status }}<br>
                 @if ($booking->staff_id === null)
                 This booking has not yet been assigned to a staff.
                 @else
@@ -18,10 +19,18 @@
             @method('PUT')
             <div class="bg-white rounded-md p-4">
                 <label for="booking_date" class="font-medium text-gray-900">Booking date</label>
-                <input required type="datetime-local" id="booking_date" name="booking_date" value="{{ $booking->booking_date }}" class="ml-2 rounded-md"><br><br>
+                <input required type="datetime-local" id="booking_date" name="booking_date" value="{{ $booking->booking_date }}" class="ml-2 rounded-md">
                 @if (Auth::user()->account_type_id === 2)
+                <br><br>
+                <label for="status" class="font-medium text-gray-900">Status</label>
+                <select id="status" name="status" value="{{ $booking->status }}" class="ml-2 rounded-md">
+                    <option value="Pending">Pending</option>
+                    <option value="Ready">Ready</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select><br><br>
                 <label for="staff" class="font-medium text-gray-900">Booking assignment</label>
-                <select required name="staff_id" id="staff" class="ml-2 rounded-md">
+                <select name="staff_id" id="staff" class="ml-2 rounded-md">
                     <option value="{{$booking->staff_id}}">Keep old assignment</option>
                     <option value="{{Auth::user()->id}}">Assign yourself</option>
                 </select>

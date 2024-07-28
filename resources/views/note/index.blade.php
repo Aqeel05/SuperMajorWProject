@@ -28,11 +28,7 @@
                         <div class="flex flex-col space-y-2 h-full">
                             <div class="flex-1">
                                 <p class="font-medium text-gray-900">
-                                    @if ($note->title === "" || $note->title === null)
-                                    (No title)
-                                    @else
-                                    {{ Str::words($note->title, 20) }}
-                                    @endif
+                                    {{ Str::words($note->title, 20) ?? "(No title)" }}
                                 </p>
                                 <p class="text-gray-600">{{ $note->updated_at }} | Note id: {{ $note->id }}</p><br>
                                 <p class="text-gray-600">

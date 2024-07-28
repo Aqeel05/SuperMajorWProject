@@ -44,7 +44,7 @@ class InfluxDBService
         }
 
         $writeApi = $this->client->createWriteApi();
-        $writeApi->write($point, $this->bucket, $this->org);
+        $writeApi->write($point, WritePrecision::S, $this->bucket, $this->org);
     }
 
     public function queryData($query)

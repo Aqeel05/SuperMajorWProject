@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('booking_date');
+            $table->dateTime('booking_date');
             $table->foreignId('patient_id')->constrained('users');
             $table->foreignId('staff_id')->nullable()->constrained('users');
-            $table->timestamps();
+            $table->string('status', 9)->default("Pending");
+            $table->datetimes();
         });
     }
 

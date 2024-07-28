@@ -6,6 +6,7 @@
                 Created at {{ $booking->created_at }}.<br>
                 Updated at {{ $booking->updated_at }}.<br>
                 Booking id: {{ $booking->id }}<br>
+                Booking status: {{ $booking->status }}<br>
                 @if ($booking->staff_id === null)
                 This booking has not yet been assigned to a staff.
                 @else

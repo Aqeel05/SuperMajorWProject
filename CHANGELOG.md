@@ -5,6 +5,37 @@
 > **Bolded** text refers to file names or directories.<br>
 > Do or do not. There is no try.
 
+## 28/7 by Jayson on test-branch-1 - Second cleanup after the branch merge
+
+### Current issues
+
+### Fixes
+
+- Fixed an issue where accounts could not be created due to hashed passwords having too many characters in the password column, by allowing the password column to accept up to 100 characters.
+- Fixed an issue where columns could not be sorted properly when logged in as a patient. This is due to the fact that some columns had the wrong sortTable indexes, causing the table to be sorted by the wrong column.
+- Fixed an issue where staff could not delete bookings.
+- Fixed an issue where the maximum note content length was 1 higher than the hard maximum (65,536), by setting the maximum length to 65,535.
+- Fixed misleading help text for emails, where the minimum length was said to be 1 instead of the actual former minimum length of 2.
+- Fixed some issues regarding the retrieval of pressure sessions and mistaking of HTTP sessions with pressure sessions.
+
+### Additions and removals
+
+- Added more minlength, maxlength, and required classes to text inputs for proper validation.
+- Added more null coalescence functions.
+- Added statuses for bookings. Addition implemented in migration file, validation implemented in BookingsController, fillable added in the Booking model, and select areas added in the edit page.
+- Added WritePrecision::S in *InfluxDBService*.
+- Removed *button* CSS in **dashboard.css**.
+- Removed **SessionController** and **UserSessionSeeder**. DatabaseSeeder now seeds 1 pressure session for the test user.
+
+### Modifications
+
+- Changed the minimum email length from 2 to 6 characters.
+- Changed the timestamp creators in migration files to datetime since the latter supports dates after 2038.
+- Massively reworked the pressure session history page at the cost of the SweetAlert2 JavaScript feature.
+- Replaced user_id with patient_id in BookingFactory because bookings do not have a user_id column.
+
+
+
 ## 24/7 by Jayson on test-branch-1 - First cleanup after the branch merge
 
 ### Current issues

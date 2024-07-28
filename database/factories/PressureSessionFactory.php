@@ -1,13 +1,13 @@
 <?php
 namespace Database\Factories;
 
-use App\Models\UserSession;
+use App\Models\PressureSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class UserSessionFactory extends Factory
+class PressureSessionFactory extends Factory
 {
-    protected $model = UserSession::class;
+    protected $model = PressureSession::class;
 
     public function definition()
     {

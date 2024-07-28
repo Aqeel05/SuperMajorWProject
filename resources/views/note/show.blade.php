@@ -2,11 +2,7 @@
     <div class="max-w-4xl mx-auto p-4">
         <div class="py-4">
             <h3 class="font-medium text-lg text-gray-900">
-                @if ($note->title === "" || $note->title === null)
-                    (No title)
-                @else
-                    {{ $note->title }}
-                @endif    
+                {{ $note->title ?? "(No title)" }}
             </h3>
             <p class="text-gray-600">
                 Created at {{ $note->created_at }}.<br>
