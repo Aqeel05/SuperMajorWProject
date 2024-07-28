@@ -22,7 +22,7 @@ class BookingsController extends Controller
         }
         elseif (request()->user()->account_type_id === 2) {
             $bookings = Booking::query()
-            ->orderBy('bookings.id', 'asc')
+            ->orderBy('id', 'asc')
             ->paginate(10);
         }
         return view('bookings.index', ['bookings' => $bookings, 'users' => $users]);
@@ -91,6 +91,7 @@ class BookingsController extends Controller
         $data = $request->validate([
             'booking_date' => ['bail', 'required', 'date'],
             'staff_id' => ['integer'],
+            'status' => ['bail', 'required', 'max:9'],
         ]);
 
         $booking->update($data);
@@ -104,7 +105,7 @@ class BookingsController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        if ($booking->patient_id !== request()->user()->id) {
+        if ($booking->patient_id !== request()->user()->id && request()->user()->account_type_id === 1) {
             abort(403);
         }
         $booking->delete();

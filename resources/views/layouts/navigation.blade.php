@@ -65,7 +65,7 @@
                             <x-dropdown-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
                                 {{ __('Analytics') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('history.index')" :active="request()->routeIs('history.index')">
+                            <x-dropdown-link :href="route('pressureSessions.index')" :active="request()->routeIs('pressureSessions.index')">
                                 {{ __('Past sessions') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('analytics.sending')" :active="request()->routeIs('analytics.sending')">
@@ -190,7 +190,7 @@
                 <x-responsive-nav-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
                     {{ __('Analytics') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('history.index')" :active="request()->routeIs('history.index')">
+                <x-responsive-nav-link :href="route('pressureSessions.index')" :active="request()->routeIs('pressureSessions.index')">
                     {{ __('Past sessions') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('analytics.sending')" :active="request()->routeIs('analytics.sending')">

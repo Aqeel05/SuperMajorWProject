@@ -19,9 +19,9 @@
         <!-- Email address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block my-1 w-full" type="email" name="email" minlength="2" maxlength="200" :value="old('email')" required autocomplete="email" />
+            <x-text-input id="email" class="block my-1 w-full" type="email" name="email" minlength="6" maxlength="200" :value="old('email')" required autocomplete="email" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            <p class="text-sm text-gray-600">Required; 2 - 200 characters long</p>
+            <p class="text-sm text-gray-600">Required; 6 - 200 characters long</p>
         </div>
 
         <!-- Password -->

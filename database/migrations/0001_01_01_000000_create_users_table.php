@@ -14,18 +14,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('email', 200)->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 40);
-            $table->integer('account_type_id', false, true);
+            $table->string('email', 200);
+            $table->dateTime('email_verified_at')->nullable();
+            $table->string('password', 100);
+            $table->tinyInteger('account_type_id', false, true);
             $table->rememberToken();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email', 200)->primary();
             $table->string('token', 200);
-            $table->timestamp('created_at')->nullable();
+            $table->dateTime('created_at')->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {

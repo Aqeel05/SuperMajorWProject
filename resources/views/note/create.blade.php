@@ -15,8 +15,8 @@
                     @endforeach
                 </p><br>
                 <label for="note" class="font-medium text-gray-900">Note contents</label>
-                <textarea required id="note" name="note" rows="10" maxlength="65536" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents"></textarea>
-                <p class="text-gray-600">You may enter a maximum of 65,536 bytes.</p>
+                <textarea required id="note" name="note" rows="10" maxlength="65535" class="w-full text-gray-600 resize-none rounded-md" placeholder="Contents"></textarea>
+                <p class="text-gray-600">You may enter a maximum of 65,535 bytes.</p>
                 <p class="text-red-600">
                     @foreach ($errors->get('note') as $error)
                         {{ $error }}

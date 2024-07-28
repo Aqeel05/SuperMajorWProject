@@ -84,7 +84,7 @@
     </header>
     <main>
         <div class="flex flex-col lg:flex-row lg:space-x-4">
-            <div class="w-4/5 lg:w-1/2 min-w-80 max-w-xl mx-auto p-2 sm:p-4">
+            <div class="w-full max-w-lg mx-auto p-2 sm:p-4">
                 <div class="calendar-wrapper rounded-md bg-white shadow-sm">
                 <div class="flex justify-between">
                     <button id="btnPrev" type="button" class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">Prev</button>
@@ -93,7 +93,7 @@
                 <div id="divCal" class="mt-1"></div>
                 </div>
             </div>
-            <div class="lg:w-1/2 mx-auto p-4">
+            <div class="mx-auto p-4">
                 <div>{{ $bookings->links() }}</div>
                 <div>
                     <table id="data-table" class="table-auto w-full">
@@ -102,10 +102,14 @@
                                 <th onclick="sortTable(0)" class="p-2 text-gray-900">ID</th>
                                 @if (Auth::user()->account_type_id === 2)
                                 <th onclick="sortTable(1)" class="p-2 text-gray-900">Patient ID</th>
-                                @endif
                                 <th onclick="sortTable(2)" class="p-2 text-gray-900">Booking date</th>
                                 <th onclick="sortTable(3)" class="p-2 text-gray-900 hidden sm:table-cell">Staff ID</th>
-                                <th onclick="sortTable(4)" class="p-2 text-gray-900 hidden sm:table-cell">Created at</th>
+                                @elseif (Auth::user()->account_type_id === 1)
+                                <th onclick="sortTable(1)" class="p-2 text-gray-900">Booking date</th>
+                                <th onclick="sortTable(2)" class="p-2 text-gray-900 hidden sm:table-cell">Staff ID</th>
+                                @endif
+                                <th class="p-2 text-gray-900 hidden sm:table-cell">Status</th>
+                                <th class="p-2 text-gray-900 hidden sm:table-cell">Created at</th>
                                 <th class="p-2 text-gray-900">Actions</th>
                             </tr>
                         </thead>
@@ -123,6 +127,9 @@
                                     <td class="p-2 text-gray-600 hidden sm:table-cell">
                                         <!-- Needs to have a null coalescence because staff_id can be null -->
                                         {{ $booking->staff_id ?? "Null" }}
+                                    </td>
+                                    <td class="p-2 text-gray-600 hidden sm:table-cell">
+                                        {{ $booking->status ?? "Pending" }}
                                     </td>
                                     <td class="p-2 text-gray-600 hidden sm:table-cell">{{ $booking->created_at }}</td>
                                     <td class="p-2 text-gray-600">

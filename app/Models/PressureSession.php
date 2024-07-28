@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SessionRecord extends Model
+// This represents pressure sessions.
+class PressureSession extends Model
 {
     use HasFactory;
 
     protected $primaryKey = 'id';
 
     protected $casts = [
-        'datetimes' => 'array', // Cast the datetimes column as an array
+        'datetimes' => 'array',
     ];
 
     protected $fillable = ['datetimes', 'user_id'];
 }
+
