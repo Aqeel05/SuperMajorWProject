@@ -17,6 +17,10 @@
                     <span class="font-medium text-green-600">The synopsis:</span> A lot of foot weight distribution identifiers, although effective, are unfortunately not accessible enough to be used outside a specific measurement room, much less an entire building where that room is.<br>
                     To solve this problem, our aim is to create a highly accessible foot pressure distribution identifier to ascertain foot pressure distribution patterns, particularly in the elderly or those with mobility impairments.
                 </p>
+                <div class="mt-4 mb-6">
+                    <h3 class="font-medium text-xl text-green-600 mb-2">System Architecture</h3>
+                    <img src="{{ asset('pictures/MPsysarchdiagramFinal.drawio.png.svg') }}" alt="System Architecture Diagram" class="w-full max-w-4xl mx-auto shadow-lg rounded-lg">
+                </div>
                 <div class="flex space-x-2">
                     <a href="{{ route('home.about') }}">
                         <x-standard-button>

@@ -6,8 +6,8 @@
     <div>
         <h3 class="font-medium text-lg text-gray-900">Forgot your password?</h3>
         <p class="text-sm text-gray-600">
-            Enter your email address and Resend will send an email containing a link to reset your password.<br>
-            You should remember your passwords through a safe password storage app.
+            Enter your email address and we will send an email with a link to reset your password.<br>
+            Remember to store your passwords somewhere!
         </p>
     </div>
 

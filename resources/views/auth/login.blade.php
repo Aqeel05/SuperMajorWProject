@@ -7,10 +7,9 @@
 
         <!-- Title and help section -->
         <div>
-            <h3 class="font-medium text-lg text-gray-900">Use a local account to log in.</h3>
+            <h3 class="font-medium text-lg text-gray-900">Use an account to log in.</h3>
             <p class="text-sm text-gray-600">
-                This is the login page. You may only login if the credentials are recognised in the database.
-                If you do not already have an account, please return to the register page.
+                If you do not already have an account, please register.
             </p>
         </div>
 
