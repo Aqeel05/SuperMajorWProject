@@ -7,12 +7,8 @@
     <div>
         <h3 class="font-medium text-gray-900 text-lg">Identify yourself.</h3>
         <p class="text-gray-600 text-sm">
-            <br>
-            You must have your email address verified before proceeding.
-            <br>
-            <br>
+            You must have your email address verified before proceeding.<br>
             Click on the Send Verification Email button below and we will send an email containing a link to verify your email address.
-            <br>
         </p>
     </div>
 

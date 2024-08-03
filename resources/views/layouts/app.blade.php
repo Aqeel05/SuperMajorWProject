@@ -20,8 +20,8 @@
         <!-- CSS for loading spinner -->
         
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-50">
+    <body x-data="{ darkMode: true }" :class="{'dark': darkMode === true }" class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-50 dark:bg-gray-800">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

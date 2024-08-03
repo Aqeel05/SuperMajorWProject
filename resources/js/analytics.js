@@ -244,7 +244,13 @@ function initializeHeatmap() {
         colorscale: 'RdBu'
     };
 
-    Plotly.newPlot('heatmap', [footData]);
+    var layout = {
+        font: {size: 16}
+    };
+
+    var config = { responsive: true };
+
+    Plotly.newPlot('heatmap', [footData], layout, config);
 }
 
 function initializeLineChart() {
