@@ -57,13 +57,13 @@
     </script>
     <header>
         <!-- Header section -->
-        <div class="bg-green-100 p-4">
+        <div class="bg-green-100 dark:bg-green-900 p-4">
             <h1 class="font-semibold text-5xl text-center text-green-500 py-2">Account data table</h1>
             <div class="max-w-5xl mx-auto">
-                <p class="hidden sm:block text-center text-gray-900 py-1">
+                <p class="hidden sm:block text-center text-gray-900 dark:text-white py-1">
                     A brief table of all accounts in the users table in the database. For more detailed information, visit a database viewer tool.
                 </p>
-                <p class="block sm:hidden text-center text-gray-900 py-1">
+                <p class="block sm:hidden text-center text-gray-900 dark:text-white py-1">
                     Please rotate your device or expand the window to make the table visible.
                 </p>
             </div>
@@ -76,21 +76,21 @@
                 <table id="data-table" class="table-auto w-full">
                     <thead>
                         <tr>
-                            <th onclick="sortTable(0)" class="p-2 text-gray-900">ID</th>
-                            <th onclick="sortTable(1)" class="p-2 text-gray-900">Name</th>
-                            <th onclick="sortTable(2)" class="p-2 text-gray-900">Email</th>
-                            <th onclick="sortTable(3)" class="p-2 text-gray-900">Account type</th>
-                            <th onclick="sortTable(4)" class="p-2 text-gray-900">Email verified at</th>
+                            <th onclick="sortTable(0)" class="p-2 text-gray-900 dark:text-gray-400">ID</th>
+                            <th onclick="sortTable(1)" class="p-2 text-gray-900 dark:text-gray-400">Name</th>
+                            <th onclick="sortTable(2)" class="p-2 text-gray-900 dark:text-gray-400">Email</th>
+                            <th onclick="sortTable(3)" class="p-2 text-gray-900 dark:text-gray-400">Account type</th>
+                            <th onclick="sortTable(4)" class="p-2 text-gray-900 dark:text-gray-400">Email verified at</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td class="p-2 font-semibold text-gray-900">{{ $user->id }}</td>
-                                <td class="p-2 text-gray-600">{{ $user->name }}</td>
-                                <td class="p-2 text-gray-600">{{ $user->email }}</td>
-                                <td class="p-2 text-gray-600">{{ $user->account_type_id }}</td>
-                                <td class="p-2 text-gray-600">{{ $user->email_verified_at ?? "Null" }}</td>
+                                <td class="p-2 font-semibold text-gray-900 dark:text-gray-400">{{ $user->id }}</td>
+                                <td class="p-2 text-gray-600 dark:text-white">{{ $user->name }}</td>
+                                <td class="p-2 text-gray-600 dark:text-white">{{ $user->email }}</td>
+                                <td class="p-2 text-gray-600 dark:text-white">{{ $user->account_type_id }}</td>
+                                <td class="p-2 text-gray-600 dark:text-white">{{ $user->email_verified_at ?? "Null" }}</td>
                             </tr>
                         @endforeach
                     </tbody>
