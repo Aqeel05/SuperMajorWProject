@@ -62,12 +62,6 @@
                             <x-dropdown-link :href="route('bookings.index')" :active="request()->routeIs('bookings.index')">
                                 {{ __('Bookings') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
-                                {{ __('Analytics') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('pressureSessions.index')" :active="request()->routeIs('pressureSessions.index')">
-                                {{ __('Past sessions') }}
-                            </x-dropdown-link>
                             <x-dropdown-link :href="route('analytics.sending')" :active="request()->routeIs('analytics.sending')">
                                 {{ __('Send MQTT') }}
                             </x-dropdown-link>
@@ -76,11 +70,23 @@
                             </x-dropdown-link>
                         </div>
                     </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
+                            {{ __('Analytics') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('pressureSessions.index')" :active="request()->routeIs('pressureSessions.index')">
+                            {{ __('Past sessions') }}
+                        </x-nav-link>
+                    </div>
+
                     <!-- Staff-only navigation link -->
                     @if (Auth::user()->id === 2)
                     <x-nav-link :href="route('accountData.index')" :active="request()->routeIs('accountData.index')">
                         {{ __('Account datatable') }}
                     </x-nav-link>
+                    @endif  
+                    @endauth
                 </div>
             </div>
 
@@ -186,9 +192,6 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.index')">
                     {{ __('Bookings') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
-                    {{ __('Analytics') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('pressureSessions.index')" :active="request()->routeIs('pressureSessions.index')">
                     {{ __('Past sessions') }}
