@@ -7,12 +7,12 @@
 }
 
 #data-table th {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid gray;
   font-weight: 600;
 }
 
 #data-table td {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid gray;
 }
 
 * 
@@ -47,30 +47,21 @@
     height: 48px;
     text-align: center;
     vertical-align: middle;
-    color: rgb(75 85 99);
     border-right: 1px solid rgb(187 247 208);
     border-top: 1px solid rgb(187 247 208);
     width: 14.28571429%;
   }
   .calendar-wrapper thead td {
     border: none;
-    color: rgb(17 24 39);
     font-size: 1.25rem;
   }
 
   .calendar-wrapper thead td .month {
-    color: rgb(75 85 99);
     font-size: 0.875rem;
-    text-transform: uppercase;
-  }
-
-  .calendar-wrapper td.not-current {
-    color: #c0c0c0;
   }
 
   .calendar-wrapper td.today {
     font-weight: 600;
-    color: rgb(22 163 74);
     font-size: 1.25rem;
   }
 
@@ -241,5 +232,5 @@
     background-color: rgb(0, 165, 44);
     color: white;
     border-radius: 4px;
-    margin-bottom: 30px;;
+    margin-bottom: 30px;
   }

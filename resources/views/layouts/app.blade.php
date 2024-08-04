@@ -15,13 +15,15 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Alpine plugins and initialisation -->
+        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <!-- CSS for loading spinner -->
-        
     </head>
-    <body x-data="{ darkMode: true }" :class="{'dark': darkMode === true }" class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-50 dark:bg-gray-800">
+    <body x-data="{darkMode: $persist(true)}" :class="{'dark': darkMode === true }" class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-50 dark:bg-gray-950">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -40,6 +42,16 @@
         </div>
     </body>
     <footer>
+        <!-- Message prompt -->
+        @if (session()->has('message'))
+        <div id="message-prompt" class="absolute left-4 bottom-4 bg-white dark:bg-gray-800 rounded-md px-4 py-2">
+            <p class="text-gray-600 dark:text-white">
+                {{ session()->get('message') }}
+            </p>
+            <p class="text-gray-900 dark:text-gray-400 text-sm">Refresh to close this message prompt.</p>
+        </div>
+        @endif
+
         <!--
             Previous title was: Starting Template - Webchat;
             Previous description was: Our virtual agent is here to help you;
