@@ -1,6 +1,8 @@
 let mqttClient;
 let dataBuffer = [];
 let footMatrix = Array.from({ length: 8 }, () => Array(8).fill(0));
+let leftfootMatrix = Array.from({ length: 8 }, () => Array(4).fill(0));
+let rightfootMatrix = Array.from({ length: 8 }, () => Array(4).fill(0));
 let leftFootCumulative = 0;
 let rightFootCumulative = 0;
 let leftFootTopCumulative = 0;
@@ -13,6 +15,8 @@ let leftFootTopLineChart = [];
 let leftFootBottomLineChart = [];
 let rightFootTopLineChart = [];
 let rightFootBottomLineChart = [];
+let currentSessionId;
+const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
 
 window.addEventListener("load", (event) => {
     connectToBroker();
@@ -45,23 +49,37 @@ window.addEventListener("load", (event) => {
         refreshGraphs();
     });
 
-    initializeHeatmap();
+    const captureBtn = document.querySelector("#capture");
+    captureBtn.addEventListener("click", function () {
+        captureTimestamp();
+    });
+
+    initializeHeatmap1();
+    initializeHeatmap2();
     initializeLineChart();
     initialize3DPlot();
     initializeRatioTexts();
 });
 
 function startSession() {
+    const currentTimestamp = new Date().toISOString();
+
     fetch('/start-session', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
+        },
+        body: JSON.stringify({ timestamp: currentTimestamp })
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Session started:', data);
+        if (data.success) {
+            console.log('Session started:', data);
+            currentSessionId = data.session_id;
+        } else {
+            console.error('Failed to start session:', data.message);
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -69,28 +87,34 @@ function startSession() {
 }
 
 function stopSession() {
+    const currentTimestamp = new Date().toISOString();
+
     fetch('/stop-session', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
+        },
+        body: JSON.stringify({ timestamp: currentTimestamp, session_id: currentSessionId })
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Session stopped:', data);
+        if (data.success) {
+            console.log('Session stopped:', data);
+        } else {
+            console.error('Failed to stop session:', data.message);
+            alert('Failed to stop session: ' + data.message);
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
+        alert('An error occurred while stopping the session.');
     });
 }
 
-
 function connectToBroker() {
     const clientId = "client" + Math.random().toString(36).substring(7);
-
     const host = "ws://broker.hivemq.com:8000/mqtt";
-
     const options = {
         keepalive: 60,
         clientId: clientId,
@@ -117,21 +141,18 @@ function connectToBroker() {
     });
 
     mqttClient.on("message", (topic, message, packet) => {
-        console.log(
-            "Received Message: " + message.toString() + "\nOn topic: " + topic
-        );
+        console.log("Received Message: " + message.toString() + "\nOn topic: " + topic);
         const messageTextArea = document.querySelector("#message");
         messageTextArea.value += message + "\r\n";
         dataBuffer.push(message.toString());
 
-        // Save to InfluxDB if save session is on
         const saveSessionCheckbox = document.querySelector("#save-session-checkbox");
         if (saveSessionCheckbox.checked) {
             saveMessageToInfluxDB(message.toString());
         }
     });
 
-    requestAnimationFrame(updateVisualizations); // Start the update loop
+    requestAnimationFrame(updateVisualizations);
 }
 
 function saveMessageToInfluxDB(message) {
@@ -141,14 +162,58 @@ function saveMessageToInfluxDB(message) {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
-        body: JSON.stringify({ message: message })
+        body: JSON.stringify({ message: message, session_id: currentSessionId, user_id: userId })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
-        console.log('Message saved to InfluxDB:', data);
+        if (data.status === 'success') {
+            console.log('Message saved to InfluxDB:', data);
+        } else {
+            console.error('Failed to save message:', data.message);
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
+    });
+}
+
+function captureTimestamp() {
+    if (!currentSessionId) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'You have not started a session yet.',
+        });
+        return;
+    }
+
+    const currentTimestamp = new Date().toISOString();
+
+    fetch('/capture-timestamp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ session_id: currentSessionId, timestamp: currentTimestamp })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Capture saved:', data);
+        } else {
+            console.error('Failed to save capture:', data.message);
+            alert('Failed to save capture: ' + data.message);
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while saving the capture.');
     });
 }
 
@@ -233,11 +298,11 @@ function changeStatusBackground() {
     status.style.backgroundColor = "lightcyan";
 }
 
-function initializeHeatmap() {
+function initializeHeatmap1() {
     const footData = {
-        z: footMatrix,
-        x: ['0', '1', '2', '3', '4', '5', '6', '7'],
-        y: ['7', '6', '5', '4', '3', '2', '1', '0'], // Ensure the Y-axis is correctly set
+        z: leftfootMatrix,
+        x: ['0', '1', '2', '3'],
+        y: ['3', '2', '1', '0'], 
         type: 'heatmap',
         hoverongaps: false,
         zsmooth: 'best',
@@ -250,7 +315,27 @@ function initializeHeatmap() {
 
     var config = { responsive: true };
 
-    Plotly.newPlot('heatmap', [footData], layout, config);
+    Plotly.newPlot('heatmap1', [footData], layout, config);
+}
+
+function initializeHeatmap2() {
+    const footData = {
+        z: rightfootMatrix,
+        x: ['4', '5', '6', '7'],
+        y: ['7', '6', '5', '4'], 
+        type: 'heatmap',
+        hoverongaps: false,
+        zsmooth: 'best',
+        colorscale: 'RdBu'
+    };
+
+    var layout = {
+        font: {size: 16}
+    };
+
+    var config = { responsive: true };
+
+    Plotly.newPlot('heatmap2', [footData], layout, config);
 }
 
 function initializeLineChart() {
@@ -307,7 +392,6 @@ function initialize3DPlot() {
 }
 
 function initializeRatioTexts() {
-    // Clear existing dynamic texts if any
     const ratiosContainer = document.querySelector('.ratios-container');
     if (ratiosContainer) {
         ratiosContainer.remove();
@@ -370,84 +454,93 @@ function initializeRatioTexts() {
 function updateVisualizations() {
     while (dataBuffer.length > 0) {
         const message = dataBuffer.shift();
-        let parsedMessage;
+        let lines = message.split('\n');
 
-        try {
-            parsedMessage = JSON.parse(message);
-            console.log("Parsed message: ", parsedMessage);
-        } catch (e) {
-            console.error("Failed to parse message", e);
-            continue;
-        }
+        let timestamp = '';
+        const data = [];
 
-        const { timestamp, quadrantID, value } = parsedMessage;
-        const row = parseInt(quadrantID[0]);
-        const column = parseInt(quadrantID[1]);
-        const numericValue = parseFloat(value);
+        lines.forEach(line => {
+            line = line.trim();
+            if (line.startsWith('Timestamp:')) {
+                timestamp = line.split('Timestamp: ')[1];
+            } else if (line.startsWith('QuadrantID:')) {
+                const [quadrantPart, valuePart] = line.split(', Value: ');
+                const quadrantID = quadrantPart.split('QuadrantID: ')[1];
+                const value = parseFloat(valuePart);
+                data.push({ quadrantID, value });
+            }
+        });
 
-        const currentTime = new Date().getTime();
-        const messageTime = new Date(timestamp).getTime();
+        // Now that we have parsed the timestamp and the data array
+        data.forEach(({ quadrantID, value }) => {
+            const row = parseInt(quadrantID[0]);
+            const column = parseInt(quadrantID[1]);
+            const numericValue = value / 4095 * 100;
 
-        // Filter data to only include last few seconds
-        if (currentTime - messageTime <= 10000) {
-            footMatrix[row][column] = numericValue;
+            const currentTime = new Date().getTime();
+            const messageTime = new Date(timestamp).getTime();
 
-            console.log(`Updated footMatrix[${row}][${column}] to ${numericValue}`);
+            if (currentTime - messageTime <= 5000) {
+                footMatrix[row][column] = numericValue;
+                
+                console.log(`Updated footMatrix[${row}][${column}] to ${numericValue}`);
 
-            // Update cumulative values and line charts
-            if (column < 4) {
-                leftFootCumulative += numericValue;
-                if (row < 4) {
-                    leftFootTopCumulative += numericValue;
+                if (column < 4) {
+                    leftfootMatrix[row][column] = numericValue;
+                    leftFootCumulative += numericValue;
+                    if (row < 4) {
+                        leftFootTopCumulative += numericValue;
+                    } else {
+                        leftFootBottomCumulative += numericValue;
+                    }
                 } else {
-                    leftFootBottomCumulative += numericValue;
-                }
-            } else {
-                rightFootCumulative += numericValue;
-                if (row < 4) {
-                    rightFootTopCumulative += numericValue;
-                } else {
-                    rightFootBottomCumulative += numericValue;
+                    rightfootMatrix[row][column] = numericValue;
+                    rightFootCumulative += numericValue;
+                    if (row < 4) {
+                        rightFootTopCumulative += numericValue;
+                    } else {
+                        rightFootBottomCumulative += numericValue;
+                    }
                 }
             }
+        });
 
-            const totalValue = leftFootCumulative + rightFootCumulative;
-            const leftFootRatio = (leftFootCumulative / totalValue) * 100 || 0;
-            const rightFootRatio = (rightFootCumulative / totalValue) * 100 || 0;
+        const totalValue = leftFootCumulative + rightFootCumulative;
+        const leftFootRatio = (leftFootCumulative / totalValue) * 100 || 0;
+        const rightFootRatio = (rightFootCumulative / totalValue) * 100 || 0;
 
-            const leftFootTopRatio = (leftFootTopCumulative / leftFootCumulative) * 100 || 0;
-            const leftFootBottomRatio = (leftFootBottomCumulative / leftFootCumulative) * 100 || 0;
-            const rightFootTopRatio = (rightFootTopCumulative / rightFootCumulative) * 100 || 0;
-            const rightFootBottomRatio = (rightFootBottomCumulative / rightFootCumulative) * 100 || 0;
+        const leftFootTopRatio = (leftFootTopCumulative / leftFootCumulative) * 100 || 0;
+        const leftFootBottomRatio = (leftFootBottomCumulative / leftFootCumulative) * 100 || 0;
+        const rightFootTopRatio = (rightFootTopCumulative / rightFootCumulative) * 100 || 0;
+        const rightFootBottomRatio = (rightFootBottomCumulative / rightFootCumulative) * 100 || 0;
 
-            leftFootLineChart.push(leftFootRatio);
-            rightFootLineChart.push(rightFootRatio);
-            leftFootTopLineChart.push(leftFootTopRatio);
-            leftFootBottomLineChart.push(leftFootBottomRatio);
-            rightFootTopLineChart.push(rightFootTopRatio);
-            rightFootBottomLineChart.push(rightFootBottomRatio);
+        leftFootLineChart.push(leftFootRatio);
+        rightFootLineChart.push(rightFootRatio);
+        leftFootTopLineChart.push(leftFootTopRatio);
+        leftFootBottomLineChart.push(leftFootBottomRatio);
+        rightFootTopLineChart.push(rightFootTopRatio);
+        rightFootBottomLineChart.push(rightFootBottomRatio);
 
-            document.getElementById('leftFootRatio').textContent = `Left Foot: ${leftFootRatio.toFixed(2)}%`;
-            document.getElementById('rightFootRatio').textContent = `Right Foot: ${rightFootRatio.toFixed(2)}%`;
-            document.getElementById('leftFootTopRatio').textContent = `Left Foot Top: ${leftFootTopRatio.toFixed(2)}%`;
-            document.getElementById('leftFootBottomRatio').textContent = `Left Foot Bottom: ${leftFootBottomRatio.toFixed(2)}%`;
-            document.getElementById('rightFootTopRatio').textContent = `Right Foot Top: ${rightFootTopRatio.toFixed(2)}%`;
-            document.getElementById('rightFootBottomRatio').textContent = `Right Foot Bottom: ${rightFootBottomRatio.toFixed(2)}%`;
+        document.getElementById('leftFootRatio').textContent = `Left Foot: ${leftFootRatio.toFixed(2)}%`;
+        document.getElementById('rightFootRatio').textContent = `Right Foot: ${rightFootRatio.toFixed(2)}%`;
+        document.getElementById('leftFootTopRatio').textContent = `Left Foot Top: ${leftFootTopRatio.toFixed(2)}%`;
+        document.getElementById('leftFootBottomRatio').textContent = `Left Foot Bottom: ${leftFootBottomRatio.toFixed(2)}%`;
+        document.getElementById('rightFootTopRatio').textContent = `Right Foot Top: ${rightFootTopRatio.toFixed(2)}%`;
+        document.getElementById('rightFootBottomRatio').textContent = `Right Foot Bottom: ${rightFootBottomRatio.toFixed(2)}%`;
 
-            Plotly.redraw('heatmap');
-            Plotly.redraw('foot3D');
+        Plotly.redraw('heatmap1');
+        Plotly.redraw('heatmap2');
+        Plotly.redraw('foot3D');
 
-            Plotly.extendTraces('chart', {
-                y: [[leftFootRatio], [rightFootRatio], [leftFootTopRatio], [leftFootBottomRatio], [rightFootTopRatio], [rightFootBottomRatio]]
-            }, [0, 1, 2, 3, 4, 5]);
-        }
+        Plotly.extendTraces('chart', {
+            y: [[leftFootRatio], [rightFootRatio], [leftFootTopRatio], [leftFootBottomRatio], [rightFootTopRatio], [rightFootBottomRatio]]
+        }, [0, 1, 2, 3, 4, 5]);
     }
 
-    requestAnimationFrame(updateVisualizations); // Continue the update loop
+    requestAnimationFrame(updateVisualizations);
 }
 
 function refreshGraphs() {
-    // Reset the cumulative values and charts
     leftFootCumulative = 0;
     rightFootCumulative = 0;
     leftFootTopCumulative = 0;
@@ -463,8 +556,11 @@ function refreshGraphs() {
     rightFootBottomLineChart = [];
 
     footMatrix = Array.from({ length: 8 }, () => Array(8).fill(0));
+    leftfootMatrix = Array.from({ length: 8 }, () => Array(4).fill(0));
+    rightfootMatrix = Array.from({ length: 8 }, () => Array(4).fill(0));
 
-    initializeHeatmap();
+    initializeHeatmap1();
+    initializeHeatmap2();
     initializeLineChart();
     initialize3DPlot();
     initializeRatioTexts();

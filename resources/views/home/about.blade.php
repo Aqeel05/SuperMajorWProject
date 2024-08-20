@@ -11,9 +11,9 @@
             <div class="container mx-auto p-4">
                 <h3 class="font-semibold text-center text-green-500">How does it work?</h3>
                 <h2 class="font-semibold text-2xl text-center text-green-500">The entire process</h2>
-                <button x-on:click="open1 = !open1" class="border-none">
-                    <p x-show="!open1" class="text-gray-600 dark:text-white">Expand</p>
-                    <p x-show="open1" class="text-gray-600 dark:text-white">Contract</p>
+                <button x-on:click="open1 = !open1" class="border">
+                    <p x-show="!open1" class="text-gray-600 dark:text-white"> More Info </p>
+                    <p x-show="open1" class="text-gray-600 dark:text-white">Less Info ↑</p>
                 </button>
                 <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 py-4">
                     <div class="bg-white dark:bg-gray-900 rounded-md p-4">
@@ -71,9 +71,9 @@
             <div class="container mx-auto p-4">
                 <h3 class="font-semibold text-center text-green-500">Powering the frontend, API, backend, and everything else</h3>
                 <h2 class="font-semibold text-2xl text-center text-green-500">Hardware, software, and frameworks used</h2>
-                <button x-on:click="open2 = !open2" class="border-none">
-                    <p x-show="!open2" class="text-gray-600 dark:text-white">Expand</p>
-                    <p x-show="open2" class="text-gray-600 dark:text-white">Contract</p>
+                <button x-on:click="open2 = !open2" class="border">
+                    <p x-show="!open2" class="text-gray-600 dark:text-white"> More Info </p>
+                    <p x-show="open2" class="text-gray-600 dark:text-white">Less Info ↑</p>
                 </button>
                 <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 py-4">
                     <div class="bg-white dark:bg-gray-900 rounded-md p-4">
@@ -372,7 +372,7 @@
                 <h3 class="font-semibold text-center text-green-500">Our database layout</h3>
                 <h2 class="font-semibold text-2xl text-center text-green-500">Entity relationship diagram</h2>
                 <div class="m-4">
-                    <img class="mx-auto" src="{{ asset('pictures/black-hole.webp') }}" alt="FWDIS Entity Relationship Diagram">
+                    <img class="mx-auto" src="{{ asset('pictures/file_2024-08-07_03.42.06.png') }}" alt="FWDIS Entity Relationship Diagram">
                 </div>
             </div>
             <div class="max-w-5xl mx-auto p-4">

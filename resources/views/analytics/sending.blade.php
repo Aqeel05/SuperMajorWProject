@@ -121,36 +121,50 @@
           }
   
           function startPublishing() {
-              const topic = document.querySelector("#topic").value.trim();
-              let quadrants = [];
-              
-              // Define quadrants
-              for (let i = 0; i < 8; i++) {
-                  for (let j = 0; j < 8; j++) {
-                      quadrants.push({row: i, col: j});
-                  }
-              }
-  
-              publishInterval = setInterval(() => {
-                  const timestamp = new Date().toISOString(); // ISO 8601 datetime string
-                  quadrants.forEach(quadrant => {
-                      const {row, col} = quadrant;
-                      const quadrantID = `${row}${col}`;
-                      const value = Math.floor(Math.random() * 101); // Random value between 0 and 100
-                      const messagePayload = JSON.stringify({
-                          timestamp: timestamp,
-                          quadrantID: quadrantID,
-                          value: value.toString()
-                      });
-  
-                      console.log(`Sending Topic: ${topic}, Message: ${messagePayload}`);
-                      mqttClient.publish(topic, messagePayload, {
-                          qos: 0,
-                          retain: false,
-                      });
-                  });
-              }, 1000); // Publish every second
-          }
+                const topic = document.querySelector("#topic").value.trim();
+                
+                // Define the foot shape
+                const footShape = [
+                    '13', '14', '15',
+                    '21', '22', '23', '24', '25', '26',
+                    '31', '32', '33', '34', '35', '36',
+                    '41', '42', '43', '44', '45', '46',
+                    '51', '52', '53', '54', '55', '56',
+                    '61', '62', '63', '64', '65', '66',
+                    '71', '72', '73', '74', '75', '76',
+                ];
+
+                publishInterval = setInterval(() => {
+                    const timestamp = new Date().toISOString();
+                    let quadrants = [];
+
+                    // Create the full 8x8 grid with IDs from 00 to 77
+                    for (let i = 0; i < 8; i++) {
+                        for (let j = 0; j < 8; j++) {
+                            const quadrantID = `${i}${j}`;
+                            let value;
+                            if (footShape.includes(quadrantID)) {
+                                // Generate a random value between 45 and 100 for the foot shape
+                                value = Math.floor(Math.random() * 65) + 45;
+                            } else {
+                                value = 0;
+                            }
+                            quadrants.push({ quadrantID, value });
+                        }
+                    }
+
+                    const messagePayload = JSON.stringify({
+                        data: quadrants,
+                        timestamp: timestamp
+                    });
+
+                    console.log(`Sending Topic: ${topic}, Message: ${messagePayload}`);
+                    mqttClient.publish(topic, messagePayload, {
+                        qos: 0,
+                        retain: false,
+                    });
+                }, 1000); // Publish every second
+            }
   
           function stopPublishing() {
               clearInterval(publishInterval);
