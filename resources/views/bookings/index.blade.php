@@ -85,10 +85,10 @@
     <main>
         <div class="flex flex-col lg:flex-row lg:space-x-4">
             <div class="w-full max-w-lg mx-auto p-2 sm:p-4">
-                <div class="calendar-wrapper rounded-md bg-white dark:bg-gray-400 shadow-sm">
+                <div class="calendar-wrapper rounded-md bg-white dark:bg-gray-900 shadow-sm">
                 <div class="flex justify-between">
-                    <button id="btnPrev" type="button" class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">Prev</button>
-                    <button id="btnNext" type="button" class="inline-flex items-center border px-2 py-1 bg-white rounded-md hover:bg-gray-100 focus:bg-gray-200 transition ease-in-out duration-150">Next</button>
+                    <button id="btnPrev" type="button" class="inline-flex items-center text-gray-600 dark:text-white border px-2 py-1 bg-white dark:bg-gray-900 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-700 transition ease-in-out duration-150">Previous</button>
+                    <button id="btnNext" type="button" class="inline-flex items-center text-gray-600 dark:text-white border px-2 py-1 bg-white dark:bg-gray-900 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-700 transition ease-in-out duration-150">Next</button>
                 </div>
                 <div id="divCal" class="mt-1"></div>
                 </div>

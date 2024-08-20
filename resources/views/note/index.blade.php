@@ -22,7 +22,7 @@
             <div>
                 {{ $notes->links() }}
             </div>  
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 py-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 py-4">
                 @foreach($notes as $note)
                     <div class="bg-white dark:bg-gray-900 rounded-md p-4 min-w-80">
                         <div class="flex flex-col space-y-2 h-full">

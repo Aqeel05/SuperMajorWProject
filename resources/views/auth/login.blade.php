@@ -7,8 +7,8 @@
 
         <!-- Title and help section -->
         <div>
-            <h3 class="font-medium text-lg text-gray-900">Use an account to log in.</h3>
-            <p class="text-sm text-gray-600">
+            <h3 class="font-medium text-lg text-gray-900 dark:text-gray-400">Use an account to log in.</h3>
+            <p class="text-sm text-gray-600 dark:text-white">
                 If you do not already have an account, please register.
             </p>
         </div>
@@ -30,18 +30,18 @@
         <!-- Remember me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-green-600 shadow-sm focus:ring-green-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-green-600 shadow-sm focus:ring-green-500" name="remember">
+                <span class="ms-2 text-sm text-gray-600 dark:text-white">{{ __('Remember me') }}</span>
             </label>
         </div>
 
         <div class="flex items-center justify-end mt-4 space-x-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('password.request') }}">
+                <a class="underline text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('register') }}">
+            <a class="underline text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" href="{{ route('register') }}">
                 {{ __('Register page') }}
             </a>
             <x-primary-button>
