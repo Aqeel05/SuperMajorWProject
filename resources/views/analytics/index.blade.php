@@ -18,6 +18,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                margin-top: 10px;
                 margin-bottom: 10px;
                 background-color: #f0f0f0;
                 padding: 10px;
@@ -43,7 +44,13 @@
                 justify-content: center;
                 margin-bottom: 20px;
             }
-            #heatmap, #chart, #foot3D {
+            #heatmap, #chart {
+                width: 80%;
+                max-width: 800px;
+                margin: auto;
+            }
+            #foot3D {
+                transform: translateX(50px); 
                 width: 80%;
                 max-width: 800px;
                 margin: auto;
@@ -136,9 +143,13 @@
             <div id="chart"></div>
         </div>
 
+        <br>
+
         <div class="visualization-container">
             <div id="foot3D"></div>
         </div>
+
+        <br>
 
     </body>
 </x-app-layout>

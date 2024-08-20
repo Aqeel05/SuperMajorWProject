@@ -17,7 +17,7 @@ class MQTTController extends Controller
 
     public function saveMessage(Request $request)
     {
-        $message = $request->input('message');
+        $message = $request->getContent(); 
         $sessionId = $request->input('session_id');
         $userId = $request->input('user_id');
         $parsedMessage = json_decode($message, true);
