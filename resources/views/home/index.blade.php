@@ -25,6 +25,19 @@
                     </a>
                 </div>
             </div>
+            
+            <div class="flex justify-center items-center space-x-4 py-4">
+                <img class="h-90 w-114 object-cover rounded-lg" src="{{ asset('pictures/matpicslabelled.png') }}">
+            </div>
+
+            <div class="flex justify-center items-center space-x-4 py-4">
+                <img class="h-64 w-64 object-cover rounded-lg" src="{{ asset('pictures/matoverview.jpg') }}">
+                <img class="h-64 w-80 object-cover rounded-lg" src="{{ asset('pictures/whitecircuitdiagram.png') }}">
+            </div>
+            <div class="flex justify-center items-center space-x-4 py-4">
+                <img class="h-64 w-90 object-cover rounded-lg" src="{{ asset('pictures/blackcircuitdiagram.jpg') }}">
+                <img class="h-64 w-64 object-cover rounded-lg" src="{{ asset('pictures/matinternals.jpg') }}">
+            </div>
         </div>
     </header>
 </x-app-layout>
