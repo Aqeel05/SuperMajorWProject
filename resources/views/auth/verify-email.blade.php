@@ -5,13 +5,10 @@
         If you didn\'t receive the email, we will gladly send you another.
     -->
     <div>
-        <h3 class="font-medium text-gray-900 text-lg">Identify yourself.</h3>
-        <p class="text-gray-600 text-sm">
-            You must have your email address verified before proceeding further.<br>
-            Press the Send Verification Email button below and Resend will send an email containing a link to verify your email address.
-            If you did not receive the email, you may request again. However, due to the limited number of emails Resend can send (100/day), you are not
-            guaranteed to receive one.<br>
-            Alternatively, you may choose to leave by clicking the icon.
+        <h3 class="font-medium text-gray-900 dark:text-gray-400 text-lg">Identify yourself.</h3>
+        <p class="text-gray-600 dark:text-white text-sm">
+            You must have your email address verified before proceeding.<br>
+            Click on the Send Verification Email button below and we will send an email containing a link to verify your email address.
         </p>
     </div>
 
@@ -34,7 +31,7 @@
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <button type="submit" class="underline text-sm text-gray-600 dark:text-white hover:text-gray-900 dark:hover:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                 {{ __('Log Out') }}
             </button>
         </form>

@@ -1,10 +1,11 @@
-
 <x-app-layout>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="https://d3js.org/d3.v7.min.js"></script>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="user-id" content="{{ Auth::id() }}">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" type="text/css" href="dashboard.css">
 
@@ -47,7 +48,7 @@
                 max-width: 800px;
                 margin: auto;
             }
-            .refresh-btn {
+            .refresh-btn, .capture-btn, .btn-container button {
                 display: block;
                 margin: 10px auto;
                 padding: 10px 20px;
@@ -58,11 +59,33 @@
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .capture-btn {
+                background-color: #3cc6a1;
+            }
+            .refresh-btn:hover, .capture-btn:hover, .btn-container button:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+            }
+            .capture-btn:hover {
+                background-color: #34b08c;
             }
             .disabled-btn {
                 background-color: #ccc;
                 color: #666;
                 cursor: not-allowed;
+            }
+            .heatmap-container {
+                display: flex;
+                justify-content: space-around;
+                margin: auto;
+                width: 100%;
+                max-width: 1600px; /* Optional: Adjust as needed */
+            }
+            .heatmap {
+                width: 45%; /* Adjust width to your needs */
+                margin: 0 10px; /* Add some spacing between heatmaps */
             }
         </style>
     </head>
@@ -72,10 +95,12 @@
                 <label for="topic">Topic</label>
                 <input type="text" id="topic" />
             </li>
+         
             <li class="form-row">
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="10" readonly></textarea>
             </li>
+         
             <li class="form-row">
                 <label for="status">Status</label>
                 <input type="text" id="status" readonly />
@@ -93,6 +118,7 @@
                     <button type="button" id="unsubscribe">End Session</button>
                     <button type="button" id="save-session">Download Session</button>
                 </div>
+                <button class="capture-btn" type="button" id="capture">Capture</button>
             </li>
         </ul>
 
@@ -100,8 +126,10 @@
 
         <div class="line"></div>
 
-        <div class="visualization-container">
-            <div id='heatmap'></div>
+        <!-- Combined visualization container -->
+        <div class="heatmap-container">
+            <div id='heatmap1' class="heatmap"></div>
+            <div id='heatmap2' class="heatmap"></div>
         </div>
 
         <div id="chart-container">

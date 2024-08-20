@@ -59,13 +59,13 @@ var Cal = function(divId) {
     // Write selected month and year
     html += '<thead><tr>';
     html += '<td colspan="7">';
-    html += '<div class="month">'; // Start capitalised month div
+    html += '<div class="month text-gray-600 dark:text-white">'; // Start capitalised month div
     html += this.Months[m]; // Write capitalised month in small font on top
-    html += '</div><div>'; // End first div, start next div
+    html += '</div><div class="text-gray-900 dark:text-gray-200">'; // End first div, start next div for numeric month and year
     html += y + '/' + (m + 1); // Write numeric month and year
     html += '</div></td></tr></thead>'; // End next div and table heading
     // Write the header of the days of the week
-    html += '<tr class="days">';
+    html += '<tr class="days text-gray-900 dark:text-gray-200">';
     for(var i=0; i < this.DaysOfWeek.length;i++) {
         html += '<td>' + this.DaysOfWeek[i] + '</td>';
     }
@@ -85,7 +85,7 @@ var Cal = function(divId) {
             html += '<tr>';
             var k = lastDayOfLastMonth - firstDayOfMonth+1;
             for(var j=0; j < firstDayOfMonth; j++) {
-                html += '<td class="not-current">' + k + '</td>';
+                html += '<td class="not-current text-gray-400">' + k + '</td>';
                 k++;
             }
         }
@@ -94,9 +94,9 @@ var Cal = function(divId) {
         var chkY = chk.getFullYear();
         var chkM = chk.getMonth();
         if (chkY == this.currYear && chkM == this.currMonth && i == this.currDay) {
-            html += '<td class="today">' + i + '</td>';
+            html += '<td class="today text-green-500">' + i + '</td>';
         } else {
-            html += '<td class="normal">' + i + '</td>';
+            html += '<td class="normal text-gray-600 dark:text-white">' + i + '</td>';
         }
         // If Saturday, closes the row
         if ( dow == 6 ) {
@@ -107,7 +107,7 @@ var Cal = function(divId) {
         else if ( i == lastDateOfMonth ) {
             var k=1;
             for(dow; dow < 6; dow++) {
-                html += '<td class="not-current">' + k + '</td>';
+                html += '<td class="not-current text-gray-400">' + k + '</td>';
                 k++;
             }
         }

@@ -74,7 +74,7 @@ class NoteController extends Controller
             abort(403);
         }
         $data = $request->validate([
-            'note' => ['bail', 'required', 'string', 'max:65536'],
+            'note' => ['bail', 'required', 'string', 'max:65535'],
             'title' => ['max:200']
         ]);
 

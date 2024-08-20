@@ -15,44 +15,15 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Alpine plugins and initialisation -->
+        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <!-- CSS for loading spinner -->
-        
     </head>
-    <body class="font-sans antialiased">
-        @auth
-        <div class="spinner-wrapper" id="spinner">
-            <div class="spinner">
-                <svg
-                    class="container" 
-                    x="0px" 
-                    y="0px"
-                    viewBox="0 0 50 31.25"
-                    height="31.25"
-                    width="50"
-                    preserveAspectRatio='xMidYMid meet'
-                    >
-                    <path 
-                        class="track"
-                        stroke-width="4" 
-                        fill="none" 
-                        pathlength="100"
-                        d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                    />
-                    <path 
-                        class="car"
-                        stroke-width="4" 
-                        fill="none" 
-                        pathlength="100"
-                        d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                    />
-                </svg>
-            </div>
-        </div>
-        @endauth
-        
-        <div class="min-h-screen bg-gray-100">
+    <body x-data="{darkMode: $persist(true)}" :class="{'dark': darkMode === true }" class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-50 dark:bg-gray-950">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -71,6 +42,16 @@
         </div>
     </body>
     <footer>
+        <!-- Message prompt -->
+        @if (session()->has('message'))
+        <div id="message-prompt" class="absolute left-4 bottom-4 bg-white dark:bg-gray-800 rounded-md px-4 py-2">
+            <p class="text-gray-600 dark:text-white">
+                {{ session()->get('message') }}
+            </p>
+            <p class="text-gray-900 dark:text-gray-400 text-sm">Refresh to close this message prompt.</p>
+        </div>
+        @endif
+
         <!--
             Previous title was: Starting Template - Webchat;
             Previous description was: Our virtual agent is here to help you;

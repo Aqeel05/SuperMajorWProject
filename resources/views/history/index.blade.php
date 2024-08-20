@@ -8,7 +8,7 @@
             body {
                 font-family: Arial, sans-serif;
                 margin: 0;
-                padding: 20px;
+                padding: 0px;
                 background-color: #f8f9fa;
             }
             .header {
@@ -44,7 +44,7 @@
             }
             .search-container button {
                 border: none;
-                background-color: #007bff;
+                background-color: #21b121;
                 color: white;
                 padding: 10px 15px;
                 border-radius: 5px;
@@ -68,7 +68,7 @@
                 text-align: left;
             }
             th {
-                background-color: #007bff;
+                background-color: #20b548;
                 color: white;
             }
             tr {
@@ -95,12 +95,22 @@
             tr:hover .delete-btn {
                 display: block;
             }
+            .view-btn {
+                display: block;
+                position: absolute;
+                right: 90px;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: #34b66e;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
         </style>
     </head>
     <body>
-        <div class="header">
-            <h1>Session History</h1>
-        </div>
         <div class="search-container">
             <input type="text" placeholder="Search...">
             <button><i class="fas fa-search"></i></button>
@@ -111,18 +121,40 @@
                     <th>Session ID</th>
                     <th>Start Time</th>
                     <th>End Time</th>
+                    <th>Session Duration</th>
                     <th>Actions</th>
                 </tr>
             </thead>
+            <tr id="session-8">
+                <td>8</td>
+                <td>2024-08-06T02:24:05.552Z</td>
+                <td>2024-08-06T02:38:51.555Z</td>
+                <td>{{ \Carbon\Carbon::parse('2024-08-06T02:24:05.552Z')->diff(\Carbon\Carbon::parse('2024-08-06T02:38:51.555Z'))->format('%H:%I:%S') }}</td>
+                <td>
+                    <a href="{{ route('history.session')}}">
+                        <button type="button" class="view-btn">View</button>
+                    </a>
+                    <button class="delete-btn" onclick="">Delete</button>
+                </td>
+            </tr>
             <tbody>
-                @foreach ($sessions as $session)
-                    <tr id="session-{{ $session->id }}">
-                        <td>{{ $session->id }}</td>
-                        <td>{{ $session->datetimes[0] }}</td>
-                        <td>{{ $session->datetimes[1] }}</td>
+                @foreach ($UserSessions as $UserSession)
+                    <tr id="session-{{ $UserSession->id }}">
+                        <td>{{ $UserSession->id }}</td>
+                        <td>{{ $UserSession->datetimes[0] ?? 'Null' }}</td>
+                        <td>{{ $UserSession->datetimes[1] ?? 'Null' }}</td>
                         <td>
-                            <a href="{{ route('sessions.show', $session->id) }}">View</a>
-                            <button class="delete-btn" onclick="deleteSession({{ $session->id }})">Delete</button>
+                            @if (isset($UserSession->datetimes[0]) && isset($UserSession->datetimes[1]))
+                                {{ \Carbon\Carbon::parse($UserSession->datetimes[0])->diff(\Carbon\Carbon::parse($UserSession->datetimes[1]))->format('%H:%I:%S') }}
+                            @else
+                                Null
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('history.show', ['id' => $UserSession->id]) }}">
+                                <button type="button" class="view-btn">View</button>
+                            </a>
+                            <button class="delete-btn" onclick="deleteSession({{ $UserSession->id }})">Delete</button>
                         </td>
                     </tr>
                 @endforeach
@@ -143,7 +175,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        fetch(`/sessions/${sessionId}`, {
+                        fetch(`/history/${sessionId}`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',

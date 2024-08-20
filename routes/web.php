@@ -1,60 +1,78 @@
 <?php
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountDatatableController;
-use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\AnalyticsController;
-use App\Http\Controllers\MqttController;
+use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\MQTTController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HistoryController;
 
-// Public Routes
+// Public routes
 Route::redirect('/', '/home')->name('dashboard');
-// {Home Routes}
+// Home routes
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
-Route::get('/home/about', [HomeController::class, 'about'])->name('home.about');
+Route::get('/about', [HomeController::class, 'about'])->name('home.about');
 
-// To enter middleware user must be authenticated and verified
+Route::get('/history/session', [HistoryController::class, 'session'])->name('history.session');
+
+// To enter this middleware section, user must be authenticated and verified
 Route::middleware(['auth', 'verified'])->group(function() {
+    // Account datatable (staff only) routes
+    Route::resource('accountData', AccountDatatableController::class);
 
-    // Note Routes
-    //Route::get('/note', [NoteController::class, 'index'])->name('note.index');
-    //Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
-    //Route::post('/note', [NoteController::class, 'store'])->name('note.store');
-    //Route::get('/note/{note}', [NoteController::class, 'show'])->name('note.show');
-    //Route::get('/note/{note}/edit', [NoteController::class, 'edit'])->name('note.edit');
-    //Route::put('/note/{note}', [NoteController::class, 'update'])->name('note.update');
-    //Route::delete('/note/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
-
-    // OR
-
-    // Note Routes
-    Route::resource('note', NoteController::class);
-
-    // History Routes
-    Route::get('/history', [HistoryController::class, 'display'])->name('history.index');
-
-    // Analytics Routes
-    Route::get('/analytics', [AnalyticsController::class, 'showData'])->name('analytics.index');
+    // Analytics routes
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics.index');
     Route::get('/analytics/sending', [AnalyticsController::class, 'mqttSend'])->name('analytics.sending');
     Route::get('/analytics/send', [AnalyticsController::class, 'send'])->name('analytics.send');
-    Route::post('/analytics/store', [AnalyticsController::class, 'storeData'])->name('analytics.store');
 
-    // MQTT Subscription/Unsubscription Routes
-    Route::post('/save-mqtt-message', [MqttController::class, 'saveMessage']);
+    // Booking routes
+    Route::resource('bookings', BookingsController::class);
 
+    // MQTT subscription/unsubscription routes
+    Route::post('/save-mqtt-message', [MQTTController::class, 'saveMessage'])->name('mqtt.saveMessage');
+
+
+    // Note routes
+    Route::resource('note', NoteController::class);
+
+    // Pressure session history routes
+    //Route::get('/pressureSessions', [PressureSessionController::class, 'index'])->name('pressureSessions.index');
+    //Route::get('/pressureSessions/{id}', [PressureSessionController::class, 'show'])->name('pressureSessions.show');
+    
     // Session controller Routes
-    Route::post('/start-session', [SessionController::class, 'startSession']);
-    Route::post('/stop-session', [SessionController::class, 'stopSession']);
+    Route::resource('history', HistoryController::class)->except(['create', 'edit']);
+    Route::get('/get-latest-session-id', [SessionController::class, 'getLatestSessionId']);
+    Route::post('/save-capture', [SessionController::class, 'saveCapture']);
 
 
-    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
-    Route::resource('sessions', SessionController::class)->except(['create', 'edit']);
+    // Route to show a specific session
+    Route::get('/history/{id}', [HistoryController::class, 'show'])->name('history.show');
+
+    // Route to start a session
+    Route::post('/start-session', [SessionController::class, 'startSession'])->name('start-session');
+
+    // Route to stop a session
+    Route::post('/stop-session', [SessionController::class, 'stopSession'])->name('stop-session');
+
+    // Route to capture a timestamp during a session
+    Route::post('/capture-timestamp', [SessionController::class, 'captureTimestamp'])->name('capture-timestamp');
+
+    // Route to save MQTT message
+    Route::post('/save-mqtt-message', [MQTTController::class, 'saveMessage'])->name('save-mqtt-message');
+
+    Route::get('/get-influxdb-data', [MQTTController::class, 'getInfluxDBData'])->name('get-influxdb-data');
+
+    // Route to delete a session
+    Route::delete('/history/{id}', [SessionController::class, 'destroy'])->name('history.destroy');
+
+
 
 });
 
+// To enter this middleware section, user must be authenticated
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

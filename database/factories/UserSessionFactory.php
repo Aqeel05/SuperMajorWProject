@@ -14,6 +14,7 @@ class UserSessionFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'datetimes' => [Carbon::now()->subHours(rand(1, 24)), Carbon::now()],
+            'datetimes1' => [Carbon::now()->subHours(rand(1, 24)), Carbon::now()],
         ];
     }
 }

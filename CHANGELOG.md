@@ -5,6 +5,63 @@
 > **Bolded** text refers to file names or directories.<br>
 > Do or do not. There is no try.
 
+## 28/7 by Jayson on test-branch-1 - Second cleanup after the branch merge
+
+### Current issues
+
+### Fixes
+
+- Fixed an issue where accounts could not be created due to hashed passwords having too many characters in the password column, by allowing the password column to accept up to 100 characters.
+- Fixed an issue where columns could not be sorted properly when logged in as a patient. This is due to the fact that some columns had the wrong sortTable indexes, causing the table to be sorted by the wrong column.
+- Fixed an issue where staff could not delete bookings.
+- Fixed an issue where the maximum note content length was 1 higher than the hard maximum (65,536), by setting the maximum length to 65,535.
+- Fixed misleading help text for emails, where the minimum length was said to be 1 instead of the actual former minimum length of 2.
+- Fixed some issues regarding the retrieval of pressure sessions and mistaking of HTTP sessions with pressure sessions.
+
+### Additions and removals
+
+- Added more minlength, maxlength, and required classes to text inputs for proper validation.
+- Added more null coalescence functions.
+- Added statuses for bookings. Addition implemented in migration file, validation implemented in BookingsController, fillable added in the Booking model, and select areas added in the edit page.
+- Added WritePrecision::S in *InfluxDBService*.
+- Removed *button* CSS in **dashboard.css**.
+- Removed **SessionController** and **UserSessionSeeder**. DatabaseSeeder now seeds 1 pressure session for the test user.
+
+### Modifications
+
+- Changed the minimum email length from 2 to 6 characters.
+- Changed the timestamp creators in migration files to datetime since the latter supports dates after 2038.
+- Massively reworked the pressure session history page at the cost of the SweetAlert2 JavaScript feature.
+- Replaced user_id with patient_id in BookingFactory because bookings do not have a user_id column.
+
+
+
+## 24/7 by Jayson on test-branch-1 - First cleanup after the branch merge
+
+### Current issues
+
+- An unknown textarea appears on the top right while logged in.
+- There are errors in the pressure session history index page and the modal component.
+
+### Fixes
+
+- Fixed a lot of issues in many pages where old code would reappear by replacing them with the new code.
+
+### Additions and removals
+
+- Added messages to SessionController regarding the confusion between the HTTP sessions and pressure sessions table.
+- Added minimum and maximum length requirements to some inputs.
+- Removed the old pressure session migration table.
+
+### Modification
+
+- Changed the referred font in the guest layout to Lexend.
+
+
+## 24/7 by both on master and test-branch-1 - 6 commits total
+
+
+
 ## 23/7 by Jayson on test-branch-1 - Minor cleanup to prepare for integration
 
 ### Additions and removals
