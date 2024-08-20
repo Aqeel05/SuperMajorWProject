@@ -271,12 +271,6 @@ function unsubscribeToTopic() {
 }
 
 function saveSessionData() {
-    const checkbox = document.querySelector("#save-session-checkbox");
-    if (!checkbox.checked) {
-        alert("Please switch on the toggle to save session data.");
-        return;
-    }
-
     const topic = document.querySelector("#topic").value.trim();
     const message = document.querySelector("#message").value;
     const status = document.querySelector("#status").value;
