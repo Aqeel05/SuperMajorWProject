@@ -295,8 +295,6 @@ function changeStatusBackground() {
 function initializeHeatmap1() {
     const footData = {
         z: leftfootMatrix,
-        x: ['0', '1', '2', '3'],
-        y: ['3', '2', '1', '0'], 
         type: 'heatmap',
         hoverongaps: false,
         zsmooth: 'best',
@@ -304,7 +302,36 @@ function initializeHeatmap1() {
     };
 
     var layout = {
-        font: {size: 16}
+        font: {size: 16},
+        title: {
+            text:'Left Foot',
+            font: {
+              family: 'Lexend',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.05,
+          },
+          xaxis: {
+            title: {
+              text: 'x Axis',
+              font: {
+                family: 'Lexend',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            },
+          },
+          yaxis: {
+            title: {
+              text: 'y Axis',
+              font: {
+                family: 'Lexend',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            }
+          }
     };
 
     var config = { responsive: true };
@@ -324,7 +351,36 @@ function initializeHeatmap2() {
     };
 
     var layout = {
-        font: {size: 16}
+        font: {size: 16},
+        title: {
+            text:'Right Foot',
+            font: {
+              family: 'Lexend',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.05,
+          },
+          xaxis: {
+            title: {
+              text: 'x Axis',
+              font: {
+                family: 'Lexend',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            },
+          },
+          yaxis: {
+            title: {
+              text: 'y Axis',
+              font: {
+                family: 'Lexend',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            }
+          }
     };
 
     var config = { responsive: true };
@@ -359,7 +415,40 @@ function initializeLineChart() {
         name: 'Right Foot Bottom'
     }];
 
-    Plotly.newPlot('chart', data);
+    var layout = {
+        font: {size: 16},
+        title: {
+            text:'Overall Feet Distribution',
+            font: {
+              family: 'Lexend',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.05,
+          },
+          xaxis: {
+            title: {
+              text: 'Per Data/Per Message',
+              font: {
+                family: 'Lexend',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            },
+          },
+          yaxis: {
+            title: {
+              text: 'Percentage Distribution (%)',
+              font: {
+                family: 'Lexend',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            }
+          }
+    };
+
+    Plotly.newPlot('chart', data, layout);
 }
 
 function initialize3DPlot() {
@@ -370,7 +459,13 @@ function initialize3DPlot() {
     };
 
     const layout = {
-        title: "Feet in 3D",
+        title: {
+            text: 'Feet in 3D',
+            font: {
+              family: 'Lexend',
+              size: 24
+            }
+          },
         autosize: false,
         height: 600,
         width: 700,
@@ -378,7 +473,7 @@ function initialize3DPlot() {
             l: 65,
             r: 50,
             b: 65,
-            t: 30,
+            t: 60,
         }
     };
 
@@ -488,7 +583,7 @@ function updateVisualizations() {
                         leftFootBottomCumulative += numericValue;
                     }
                 } else {
-                    rightfootMatrix[row][column] = numericValue;
+                    rightfootMatrix[row][column-4] = numericValue;
                     rightFootCumulative += numericValue;
                     if (row < 4) {
                         rightFootTopCumulative += numericValue;
