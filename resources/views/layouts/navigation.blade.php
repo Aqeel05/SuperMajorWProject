@@ -74,7 +74,7 @@
                         <x-nav-link :href="route('analytics.index')" :active="request()->routeIs('analytics.index')">
                             {{ __('Analytics') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('history.index')" :active="request()->routeIs('pressureSessions.index')">
+                        <x-nav-link :href="route('history.index')" :active="request()->routeIs('history.index')">
                             {{ __('Past sessions') }}
                         </x-nav-link>
                     </div>
@@ -217,7 +217,7 @@
                 <x-responsive-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.index')">
                     {{ __('Bookings') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('history.index')" :active="request()->routeIs('pressureSessions.index')">
+                <x-responsive-nav-link :href="route('history.index')" :active="request()->routeIs('history.index')">
                     {{ __('Past sessions') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('analytics.sending')" :active="request()->routeIs('analytics.sending')">
