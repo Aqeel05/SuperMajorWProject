@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Note;
 use App\Models\Booking;
-use App\Models\PressureSession;
+use App\Models\UserSession;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
 
         Note::factory(1)->create();
         Booking::factory(1)->create();
-        PressureSession::factory(1)->create();
+        UserSession::factory(1)->create();
     }
 }

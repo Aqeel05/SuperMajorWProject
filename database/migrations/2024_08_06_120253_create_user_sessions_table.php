@@ -12,7 +12,7 @@ class CreateUserSessionsTable extends Migration
             $table->json('datetimes'); // Store array of timestamps
             $table->json('datetimes1')->nullable(); // Store array of capture timestamps
             $table->unsignedBigInteger('user_id'); // User ID
-            $table->timestamps();
+            $table->datetimes();
             
             // Foreign key constraint if you have a users table
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
