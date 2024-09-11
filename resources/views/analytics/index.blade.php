@@ -42,10 +42,10 @@
             .visualization-container {
                 display: flex;
                 justify-content: center;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
             #heatmap, #chart {
-                width: 80%;
+                width: 100%;
                 max-width: 800px;
                 margin: auto;
             }
@@ -88,11 +88,11 @@
                 justify-content: space-around;
                 margin: auto;
                 width: 100%;
-                max-width: 1600px; /* Optional: Adjust as needed */
+                max-width: 100%; /* Optional: Adjust as needed */
             }
             .heatmap {
-                width: 45%; /* Adjust width to your needs */
-                margin: 0 10px; /* Add some spacing between heatmaps */
+                width: 25%; /* Adjust width to your needs */
+                margin: 2px; /* Add some spacing between heatmaps */
             }
         </style>
     </head>

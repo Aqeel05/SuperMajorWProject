@@ -302,12 +302,12 @@ function initializeHeatmap1() {
     };
 
     var layout = {
-        font: {size: 16},
+        font: {size: 12},
         title: {
             text:'Left Foot',
             font: {
               family: 'Lexend',
-              size: 24
+              size: 18
             },
             xref: 'paper',
             x: 0.05,
@@ -317,21 +317,12 @@ function initializeHeatmap1() {
               text: 'x Axis',
               font: {
                 family: 'Lexend',
-                size: 18,
+                size: 10,
                 color: '#7f7f7f'
               }
             },
           },
-          yaxis: {
-            title: {
-              text: 'y Axis',
-              font: {
-                family: 'Lexend',
-                size: 18,
-                color: '#7f7f7f'
-              }
-            }
-          }
+
     };
 
     var config = { responsive: true };
@@ -351,12 +342,12 @@ function initializeHeatmap2() {
     };
 
     var layout = {
-        font: {size: 16},
+        font: {size: 12},
         title: {
             text:'Right Foot',
             font: {
               family: 'Lexend',
-              size: 24
+              size: 18
             },
             xref: 'paper',
             x: 0.05,
@@ -366,21 +357,12 @@ function initializeHeatmap2() {
               text: 'x Axis',
               font: {
                 family: 'Lexend',
-                size: 18,
+                size: 10,
                 color: '#7f7f7f'
               }
             },
           },
-          yaxis: {
-            title: {
-              text: 'y Axis',
-              font: {
-                family: 'Lexend',
-                size: 18,
-                color: '#7f7f7f'
-              }
-            }
-          }
+
     };
 
     var config = { responsive: true };
@@ -575,7 +557,23 @@ function updateVisualizations() {
                 console.log(`Updated footMatrix[${row}][${column}] to ${numericValue}`);
 
                 if (column < 4) {
-                    leftfootMatrix[row][column] = numericValue;
+                    if (row == 7) {
+                        leftfootMatrix[0][column] = numericValue;
+                    } else if (row == 6) {
+                        leftfootMatrix[1][column] = numericValue;
+                    } else if (row == 5) {
+                        leftfootMatrix[2][column] = numericValue;
+                    } else if (row == 4) {
+                        leftfootMatrix[3][column] = numericValue;
+                    } else if (row == 3) {
+                        leftfootMatrix[4][column] = numericValue;
+                    }  else if (row == 2) {
+                        leftfootMatrix[5][column] = numericValue;   
+                    }  else if (row == 1) {
+                        leftfootMatrix[6][column] = numericValue;   
+                    }  else if (row == 0) {
+                        leftfootMatrix[7][column] = numericValue;   
+                    }
                     leftFootCumulative += numericValue;
                     if (row < 4) {
                         leftFootTopCumulative += numericValue;
